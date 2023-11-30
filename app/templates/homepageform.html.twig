@@ -1,0 +1,23 @@
+{% extends 'banner.html.twig' %}
+{% block content %}
+    <div id="page-content-div">
+        <h3>{{ page_heading_2 }}</h3>
+        <form method="{{ method }}" action="{{ action }}">
+            <fieldset>
+                <legend>User details</legend>
+                <br>
+                <label for="username">Enter your name:</label>
+                <input id="username" name="username" type="text" value="{{ initial_input_box_value }}" size="30" maxlength="50">
+                <br><br>
+                <label for="password">Enter your password:</label>
+                <input id="password" name="password" type="password" value="{{ initial_input_box_value }}" size="30" maxlength="50">
+                <br><br>
+                <label for="email">Enter your email:</label>
+                <input id="email" name="email" type="text" value="{{ initial_input_box_value }}" size="30" maxlength="50">
+                <br><br>
+                <input type="submit" value="Create user account >>>">
+            </fieldset>
+        </form>
+        <p class="curr_page"><a href="{{ landing_page }}">Home</a></p>
+    </div>
+{% endblock %}
