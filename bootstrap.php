@@ -17,7 +17,7 @@ if (session_start()) {
 
     $container = new Container();
 
-    App::setContainer($container);
+    AppFactory::setContainer($container);
 
     $app = AppFactory::create();
 
