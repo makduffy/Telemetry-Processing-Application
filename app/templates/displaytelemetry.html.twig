@@ -1,0 +1,16 @@
+{% extends 'banner.html.twig' %}
+{% block content %}
+    <div class="background">
+        <h2>{{ page_heading_2 }}</h2>
+        <p>{{ page_text }}</p>
+        {% for switch in switches %}
+            <p>Switch {{ loop.index }}: {{ switch }}</p>
+        {% endfor %}
+        <p>The fan is rotating: <b>{{ fan }}</b></p>
+        <p>The heater temperature is: <b>{{ heater }} degrees celsius</b></p>
+        <p>Last number on the keypad is <b>{{ keypad }}</b></p>
+        <p>Unique id <b>{{ id }}</b></p>
+        <p>Tree <b>{{ tree }}</b></p>
+        <p class="curr_page"><a href="{{ landing_page }}">Another go</a></p>
+    </div>
+{% endblock %}

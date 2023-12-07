@@ -3,7 +3,6 @@
 declare (strict_types=1);
 
 return function (Container $container, string $app_dir){
-
     $app_url = dirname($_SERVER['SCRIPT_NAME']);
 
     $container->set('settings', function() use ($app_dir, $app_url)
