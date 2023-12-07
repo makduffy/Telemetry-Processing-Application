@@ -1,5 +1,4 @@
 <?php
-// https://github.com/dominikmch/CTEC3110
 declare (strict_types=1);
 
 return function (Container $container, string $app_dir){
