@@ -1,6 +1,7 @@
 <?php
-// https://github.com/dominikmch/CTEC3110
 declare (strict_types=1);
+
+use DI\Container;
 
 return function (Container $container, string $app_dir){
     $app_url = dirname($_SERVER['SCRIPT_NAME']);
@@ -10,7 +11,7 @@ return function (Container $container, string $app_dir){
         return [
             'landing_page' => 'telemetry_project/telemetry/',
             'application_name' => 'Telemetry App',
-            'css_path' => $app_url . 'css/standard.css',
+            'css_path' => $app_url . 'css/calculate.css',
             'log_file_path' => '/p3t/phpappfolder/logs/',
             'displayErrorDetails' => true,
             'logErrorDetails' => true,

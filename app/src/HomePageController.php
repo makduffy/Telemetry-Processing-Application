@@ -9,7 +9,7 @@
  * @package dates services
  */
 
-namespace Encryption;
+namespace Telemetry;
 
 class HomePageController
 {
