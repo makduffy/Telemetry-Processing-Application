@@ -16,7 +16,7 @@ class HomePageView
 
         $view->render(
             $response,
-            'homepageform.hmtl.twig',
+            'homepageform.html.twig',
             [
                 'css_path' => $css_path,
                 'landing_page' => $landing_page,
