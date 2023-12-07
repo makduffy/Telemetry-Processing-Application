@@ -19,8 +19,8 @@ return function (Container $container, string $app_dir)
     $container->set('settings', function() use ($app_dir, $app_url)
     {
         return [
-            'landing_page' => '/ctec3110/lab_06/country_details/',
-            'application_name' => 'Country Details',
+            'landing_page' => '/includes/Telemetry',
+            'application_name' => 'Telemetry',
             'css_path' => $app_url . '/css/standard.css',
             'log_file_path' => '/p3t/phpappfolder/logs/',
             'displayErrorDetails' => true,
@@ -29,7 +29,7 @@ return function (Container $container, string $app_dir)
             'addContentLengthHeader' => false,
             'mode' => 'development',
             'debug' => true,
-            'wsdl' => 'http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL',
+            'wsdl' => 'https://m2mconnect.ee.co.uk/orange-soap/services/MessageServiceByCountry?wsdl',
             'view' => [
                 'template_path' => $app_dir . 'templates/',
                 'cache_path' => $app_dir . 'cache/',
@@ -39,10 +39,6 @@ return function (Container $container, string $app_dir)
                 ],
             ],
             'options' => [
-                'capital',
-                'continents',
-                'full',
-                'currency'
             ]
         ];
         }
