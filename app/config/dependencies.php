@@ -2,12 +2,12 @@
 
 declare (strict_types=1);
 
-use Telemetry\HomePageController;
-use Telemetry\HomePageView;
 use Telemetry\DatabaseWrapper;
 use DI\Container;
-use Slim\Views\Twig;
 use Slim\App;
+use Slim\Views\Twig;
+use Telemetry\controllers\HomePageController;
+use Telemetry\views\HomePageView;
 
 return function (Container $container, App $app)
 {

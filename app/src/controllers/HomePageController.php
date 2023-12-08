@@ -2,7 +2,7 @@
 
 declare (strict_types=1);
 
-namespace Telemetry;
+namespace Telemetry\controllers;
 class HomePageController
 {
     public function createHtmlOutput(object $container, object $request, object $response): void

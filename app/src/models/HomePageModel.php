@@ -2,7 +2,7 @@
 
 declare (strict_types=1);
 
-namespace Telemetry;
+namespace Telemetry\models;
 
 class HomePageModel
 {

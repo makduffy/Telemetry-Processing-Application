@@ -6,11 +6,10 @@
         {% for switch in switches %}
             <p>Switch {{ loop.index }}: {{ switch }}</p>
         {% endfor %}
-        <p>The fan is rotating: <b>{{ fan }}</b></p>
-        <p>The heater temperature is: <b>{{ heater }} degrees celsius</b></p>
-        <p>Last number on the keypad is <b>{{ keypad }}</b></p>
-        <p>Unique id <b>{{ id }}</b></p>
-        <p>Tree <b>{{ tree }}</b></p>
+        <p> Fan: <b>{{ fan }}</b></p>
+        <p>Heater: <b>{{ heater }} degrees celsius</b></p>
+        <p>keypad: <b>{{ keypad }}</b></p>
+        <p>ID<b>{{ id }}</b></p>
         <p class="curr_page"><a href="{{ landing_page }}">Another go</a></p>
     </div>
 {% endblock %}
