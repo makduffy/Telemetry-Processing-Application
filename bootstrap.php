@@ -6,8 +6,6 @@ use DI\Container;
 use Slim\Factory\AppFactory;
 
 
-if (session_start()) {
-
     require 'vendor/autoload.php';
 
     $base_dir = dirname(__DIR__);
@@ -20,8 +18,6 @@ if (session_start()) {
     AppFactory::setContainer($container);
 
     $app = AppFactory::create();
-
-    $app->setBasePath('/Telemetry');
 
     $app->setBasePath("/telemetry_project/telemetry");
 
@@ -37,4 +33,3 @@ if (session_start()) {
     require $routes_dir . 'routes.php';
 
     $app->run();
-}

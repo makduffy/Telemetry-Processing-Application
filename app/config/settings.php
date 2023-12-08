@@ -3,10 +3,14 @@ declare (strict_types=1);
 
 use DI\Container;
 
-return function (Container $container, string $app_dir){
+return function (Container $container, string $app_dir)
+{
     $app_url = dirname($_SERVER['SCRIPT_NAME']);
 
-    $container->set('settings', function() use ($app_dir, $app_url)
+    $container->set(
+        'settings',
+        function()
+        use ($app_dir, $app_url)
     {
         return [
             'landing_page' => '/includes/Telemetry',
@@ -42,7 +46,7 @@ return function (Container $container, string $app_dir){
                 'options' => [
                     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
                     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                    PDO::ATTR_EMULATE_PREPARES   => true,
+                    PDO::ATTR_EMULATE_PREPARES   => true
                 ],
 
             ],
