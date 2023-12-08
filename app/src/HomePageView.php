@@ -1,7 +1,6 @@
 <?php
-
+declare (strict_types=1);
 namespace Telemetry;
-
 class HomePageView
 {
     public function __construct() {}
@@ -19,13 +18,15 @@ class HomePageView
             'homepageform.html.twig',
             [
                 'css_path' => $css_path,
+                'application_name' => $application_name,
                 'landing_page' => $landing_page,
-                'action' => '',
-                'method' => 'post',
+                'action' => 'storesessiondetails',
                 'initial_input_box_value' => null,
-                'page_title' => $application_name,
-                'page_heading_1' => $application_name,
-                'page_heading_2' => 'New User Registration'
+                'page_title' => 'Sessions with Doctrine Demonstration',
+                'page_heading_1' => 'Sessions Demonstration',
+                'page_heading_2' => 'Enter values for storage in a session',
+                'page_heading_3' => 'Select the type of session storage to be used',
+
             ]);
     }
 

@@ -9,9 +9,10 @@ return function (Container $container, string $app_dir){
     $container->set('settings', function() use ($app_dir, $app_url)
     {
         return [
-            'landing_page' => 'telemetry_project/telemetry/',
-            'application_name' => 'Telemetry App',
-            'css_path' => $app_url . 'css/calculate.css',
+            'landing_page' => '/includes/Telemetry',
+            'application_name' => 'Telemetry',
+            'css_path' => $app_url . '/css/standard.css',
+
             'log_file_path' => '/p3t/phpappfolder/logs/',
             'displayErrorDetails' => true,
             'logErrorDetails' => true,
@@ -28,6 +29,7 @@ return function (Container $container, string $app_dir){
                     'auto_reload' => true
                 ],
             ],
+
             'pdo_settings' => [
                 'rdbms' => 'mysql',
                 'host' => 'mariadb.dmu.ac.uk',
