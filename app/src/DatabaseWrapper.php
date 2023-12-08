@@ -15,6 +15,8 @@ class DatabaseWrapper
     private $log;
     private $errors;
 
+    //private $settings;
+
     public function __construct(){
         $this->database_connection_settings = null;
         $this->db_handle = null;
@@ -24,7 +26,13 @@ class DatabaseWrapper
         $this->errors = [];
     }
 
-    public function __deconstruct(){
+    public function __destruct(){
+    }
+
+    public function setValues()
+    {
+
+
     }
 
     public function setDatabaseConnectionSettings($database_connection_settings){
@@ -39,24 +47,49 @@ class DatabaseWrapper
         $this->log=$log;
     }
 
-    public function makeDatabaseConnection(){
+    public function makeDatabaseConnection()
+    {
+        $pdo = false;
         $pdo_error = '';
 
         $database_settings = $this->database_connection_settings;
+/*
+        $database_settings = [
+            'rdbms' => 'mysql',
+            'host' => 'localhost',
+            'db_name' => 'session_db',
+            'user_name' => 'p2599966',
+            'user_password' => 'brItt~29',
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'options' => [
+                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES   => true
+            ],
+
+        ];
+*/
+
+        var_dump($database_settings);
+
         $host_name = $database_settings['rdbms'] . ':host=' . $database_settings['host'];
         $port_number = ';port=' . '3306';
         $user_database = ';dbname=' . $database_settings['db_name'];
         $host_details = $host_name . $port_number . $user_database;
-        $user_name = $database_settings['user_password'];
+        $user_name = $database_settings['user_name'];
         $user_password = $database_settings['user_password'];
         $pdo_attributes = $database_settings['options'];
 
         try {
-            $pdo_handle = new PDO($host_details, $user_name, $user_password, $pdo_attributes);
+            $pdo_handle = new \PDO($host_details, $user_name, $user_password, $pdo_attributes);
             $this->db_handle = $pdo_handle;
             $this->log->notice('Successfully connected to database');
+            echo ("Connected to database");
+            die;
         } catch (PDOException $exception_object) {
-            trigger_error('error connecting to databse');
+            echo ("ERRORRRR");
+            trigger_error('error connecting to database');
             $pdo_error = 'error connecting to database';
             $this->log->warning('Error connecting to database');
         }
@@ -86,9 +119,9 @@ class DatabaseWrapper
             $error_message .= 'Error: ' . var_dump($this->prepared_statement->errorInfo(),true) . "\n";
             $this->errors['db_error'] = true;
             $this->errors['sql_error'] = $error_message;
-            $this->session_logger->warning('Error connecting to database');
+            $this->log->warning('Error connecting to database');
         }
-        return $this->erorrs['db_error'];
+        return $this->errors['db_error'];
     }
 
     public function countRows(){
@@ -106,5 +139,7 @@ class DatabaseWrapper
         $this->prepared_statement->closeCursor();
         return $row;
     }
+
+
 
 }

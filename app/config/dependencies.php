@@ -2,6 +2,7 @@
 
 declare (strict_types=1);
 
+use Telemetry\DatabaseWrapper;
 use DI\Container;
 use Slim\App;
 use Slim\Views\Twig;
@@ -14,7 +15,9 @@ return function (Container $container, App $app)
     $template_path = $settings['view']['template_path'];
     $cache_path = $settings['view']['cache_path'];
 
-    $container->set('view', function () use ($template_path, $cache_path) {
+    $container->set(
+        'view',
+        function () use ($template_path, $cache_path) {
             {
                 return Twig::create($template_path, ['cache' => false]);
             }
@@ -23,6 +26,11 @@ return function (Container $container, App $app)
 
     $container->set('homePageController', function () {
         return new HomePageController();
+    });
+
+    $container->set('databaseWrapper', function () {
+        $database_wrapper_handle = new DatabaseWrapper();
+        return $database_wrapper_handle;
     });
 
     $container->set('homePageView', function () {
