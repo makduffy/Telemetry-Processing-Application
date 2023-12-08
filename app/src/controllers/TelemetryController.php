@@ -1,6 +1,6 @@
 <?php
 
-namespace Telemetry;
+namespace Telemetry\controllers;
 
 class TelemetryController
 {

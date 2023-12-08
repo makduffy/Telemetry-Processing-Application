@@ -1,5 +1,5 @@
 <?php
-namespace Telemetry;
+namespace Telemetry\views;
 class TelemetryView
 {
     public function construct__(){
