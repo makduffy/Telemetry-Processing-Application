@@ -1,0 +1,23 @@
+{% extends 'banner.html.twig' %}
+{% block content %}
+    <div id="page-content-div">
+        <h1>{{ 'Telemetry' }}</h1>
+        <form action="{{ action }}" method="post">
+            <fieldset>
+                <legend>Create an account</legend>
+                <br>
+                <label for="username">Enter username: </label>
+                <input id="username" name="username" type="text" value="{{ initial_input_box_value }}" size="30" maxlength="50">
+                <br><br>
+                <label for="password">Enter your password: </label>
+                <input id="password" name="password" type="password" value="{{ initial_input_box_value }}" size="30" maxlength="50">
+                <label for="confirmPassword"></label>
+                <input id="confirmPassword" name="confirm password" type="password" value="{{ initial_input_box_value }}" size="30" maxlength="50">
+                <br><br>
+                <input type="submit" value="Create account">
+                <input type="submit" value="Login">
+            </fieldset>
+        </form>
+        <p class="curr_page"><a href="{{ landing_page }}">Home</a></p>
+    </div>
+{% endblock %}
