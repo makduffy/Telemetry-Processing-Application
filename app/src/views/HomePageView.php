@@ -1,6 +1,6 @@
 <?php
 declare (strict_types=1);
-namespace Telemetry;
+namespace Telemetry\views;
 class HomePageView
 {
     public function __construct() {}

@@ -1,6 +1,6 @@
 <?php
 
-namespace Telemetry;
+namespace Telemetry\models;
 
 class TelemetryModel{
 
