@@ -1,19 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: slim
- * Date: 13/10/17
- * Time: 12:33
- */
-
 declare (strict_types=1);
 
 use DI\Container;
 
-// callback function to make settings available in an array
-
-return function (Container $container, string $app_dir)
-{
+return function (Container $container, string $app_dir){
     $app_url = dirname($_SERVER['SCRIPT_NAME']);
 
     $container->set('settings', function() use ($app_dir, $app_url)
@@ -22,6 +12,7 @@ return function (Container $container, string $app_dir)
             'landing_page' => '/includes/Telemetry',
             'application_name' => 'Telemetry',
             'css_path' => $app_url . '/css/standard.css',
+
             'log_file_path' => '/p3t/phpappfolder/logs/',
             'displayErrorDetails' => true,
             'logErrorDetails' => true,
@@ -38,10 +29,31 @@ return function (Container $container, string $app_dir)
                     'auto_reload' => true
                 ],
             ],
-            'options' => [
-            ]
-        ];
-        }
-    );
-};
 
+            'pdo_settings' => [
+                'rdbms' => 'mysql',
+                'host' => 'mariadb.dmu.ac.uk',
+                'db_name' => 'p2599966db',
+                'port' => '3306',
+                'user_name' => 'p2599966_web',
+                'user_password' => 'scuLk=70',
+                'charset' => 'utf8',
+                'collation' => 'utf8_unicode_ci',
+                'options' => [
+                    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                    PDO::ATTR_EMULATE_PREPARES   => true,
+                ],
+
+            ],
+            'm2m credentials' => [
+                'username' => '',
+                'password' => '',
+                'count' => "100",
+                'deviceMSISDN' => "+447817814149",
+                'countryCode' => "44"
+            ]
+
+        ];
+    });
+};
