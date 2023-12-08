@@ -23,8 +23,6 @@ if (session_start()) {
 
     $app->setBasePath('/Telemetry');
 
-    $app->setBasePath("/telemetry_project/telemetry");
-
     $settings = require $config_dir . 'settings.php';
     $settings($container, $app_dir);
 
