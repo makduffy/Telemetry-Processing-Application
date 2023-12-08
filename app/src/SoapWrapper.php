@@ -1,54 +1,56 @@
 <?php
 
-declare (strict_types=1);
-
 namespace Telemetry;
 
 class SoapWrapper
 {
-
-    public function __construct(){}
-
-    public function __destruct(){}
-
-    public function createSoapClient(array $settings)
+    public function __construct()
     {
+    }
+    public function __desruct()
+    {
+    }
+public function createSoapClient(array $settings): object
+{
+    $soap_client_handler = false;
+    $soap_client_handler = [];
+    $exception = '';
+
+    $wsdl = $settings['wsdl'];
+    $soap_client_parameter = ['trace' => true, 'exceptions' => true];
+
+    try {
+        $soap_client_handle = new \SoapClient($wsdl, $soap_client_handler);
+    } catch (\Soap $exception){
         $soap_client_handle = false;
-        $soap_client_parameters = [];
-        $exception = '';
-
-        $wsdl = $settings['wsdl'];
-        $soap_client_parameters = ['trace' => true, 'exceptions' => true];
-
-        try
-        {
-            $soap_client_handle = new \SoapClient($wsdl, $soap_client_parameters);
-//            var_dump($soap_client_handle->__getFunctions());
-//            var_dump($soap_client_handle->__getTypes());
-        }
-        catch (\SoapFault $exception)
-        {
-            $soap_client_handle = 'Ooops - something went wrong when connecting to the data supplier.  Please try again later';
-        }
-        return $soap_client_handle;
+        echo 'Something went wrong';
     }
 
-    public function performSoapCall($soap_client_handle, $webservice_function, $webservice_call_parameters, $webservice_return_value): array
+    return $soap_client_handle;
+}
+
+    public function performSoapCall(
+        $soap_client_handle,
+        $webservice_function,
+        $webservice_call_parameters,
+        $webservice_value
+    )
     {
-        try {
-            $conversion_result = $soap_client_handle->__soapCall($webservice_function, [$webservice_call_parameters]);
-            $webservice_returned_data = $conversion_result->$webservice_return_value;
-//            var_dump($soap_client_handle->__getLastRequestHeaders());
-//            var_dump($soap_client_handle->__getLastRequest());
-//            var_dump($soap_client_handle->__getLastResponseHeaders());
-//            var_dump($soap_client_handle->__getLastResponse());
-        } catch (\SoapFault $exception) {
-            trigger_error($exception);
+        $soap_call_result = (object)[];
+        $webservice_call_result = null;
+
+        if ($soap_client_handle) {
+            try {
+                $webservice_call_result = $soap_client_handle->__soapCall(
+                    $webservice_function,
+                    [$webservice_call_parameters]
+                );
+                $soap_call_result = $webservice_call_result->{$webservice_value};
+            } catch (\SoapFault $exception) {
+                $soap_call_result = $exception;
+            }
         }
 
-        $webservice_result['webservice_function'] = $webservice_function;
-        $webservice_result['webservice_returned_data'] = $webservice_returned_data;
+        return $soap_call_result;
 
-        return $webservice_result;
-    }
 }
