@@ -9,7 +9,7 @@ $app->get(
         use ($app)
     {
         $container = $app->getContainer();
-        $telemetry_controller = $container->get('TelemetryController');
+        $telemetry_controller = $container->get('telemetryController');
 
         $telemetry_controller->createHtmlOutput($container, $request, $response);
         return $response;
