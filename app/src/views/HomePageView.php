@@ -1,6 +1,8 @@
 <?php
 declare (strict_types=1);
 namespace Telemetry\views;
+
+
 class HomePageView
 {
     public function __construct() {}
@@ -21,7 +23,7 @@ class HomePageView
                 'application_name' => $application_name,
                 'landing_page' => $landing_page,
                 'initial_input_box_value' => null,
-
+                'action' => 'telemetrymain'
             ]);
     }
 
