@@ -12,4 +12,4 @@
  */
 
 require 'homepage.php';
-
+require 'telemetrymain.php';

@@ -13,8 +13,8 @@ return function (Container $container, string $app_dir)
         use ($app_dir, $app_url)
     {
         return [
-            'landing_page' => '/includes/Telemetry',
-            'application_name' => 'Telemetry',
+            'landing_page' => '/includes/telemetry',
+            'application_name' => 'telemetry',
             'css_path' => $app_url . '/css/standard.css',
 
             'log_file_path' => '/p3t/phpappfolder/logs/',
@@ -50,13 +50,6 @@ return function (Container $container, string $app_dir)
                 ],
 
             ],
-            'm2m credentials' => [
-                'username' => '',
-                'password' => '',
-                'count' => "100",
-                'deviceMSISDN' => "+447817814149",
-                'countryCode' => "44"
-            ]
 
         ];
     });

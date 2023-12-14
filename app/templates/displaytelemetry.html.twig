@@ -1,15 +1,12 @@
-{% extends 'homepageform.html.twig' %}
 {% block content %}
-    <div class="background">
-        <h2>{{ page_heading_2 }}</h2>
-        <p>{{ page_text }}</p>
-        {% for switch in switches %}
-            <p>Switch {{ loop.index }}: {{ switch }}</p>
-        {% endfor %}
-        <p> Fan: <b>{{ fan }}</b></p>
-        <p>Heater: <b>{{ heater }} degrees celsius</b></p>
-        <p>keypad: <b>{{ keypad }}</b></p>
-        <p>ID<b>{{ id }}</b></p>
-        <p class="curr_page"><a href="{{ landing_page }}">Another go</a></p>
+    <div class="page-content-div">
+        <h2>{{ 'telemetry service' }}</h2>
+        <ul>
+            {% for item in telemetrydata %}
+                <li>{{ item }}</li>
+            {% else %}
+                <li>No telemetry data found.</li>
+            {% endfor %}
+        </ul>
     </div>
 {% endblock %}

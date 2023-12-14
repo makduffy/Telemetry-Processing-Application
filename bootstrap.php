@@ -6,10 +6,12 @@ use DI\Container;
 use Slim\Factory\AppFactory;
 
 
+if (session_start()) {
+
     require 'vendor/autoload.php';
 
     $base_dir = dirname(__DIR__);
-    $app_dir = $base_dir .'/Telemetry/app/';
+    $app_dir = $base_dir .'/telemetry/app/';
     $config_dir = $app_dir . 'config/';
     $routes_dir =  $app_dir . 'routes/';
 
@@ -19,7 +21,7 @@ use Slim\Factory\AppFactory;
 
     $app = AppFactory::create();
 
-    $app->setBasePath("/telemetry_project/telemetry");
+    $app->setBasePath('/telemetry');
 
     $settings = require $config_dir . 'settings.php';
     $settings($container, $app_dir);
@@ -33,3 +35,4 @@ use Slim\Factory\AppFactory;
     require $routes_dir . 'routes.php';
 
     $app->run();
+}
