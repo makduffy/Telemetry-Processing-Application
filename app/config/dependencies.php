@@ -36,4 +36,20 @@ return function (Container $container, App $app)
     $container->set('homePageView', function () {
         return new HomePageView();
     });
+
+    $container->set('telemetryController', function () {
+        return new \Telemetry\controllers\TelemetryController();
+    });
+
+    $container->set('telemetryView', function () {
+        return new \Telemetry\views\TelemetryView();
+    });
+
+    $container->set('telemetryModel', function () {
+        return new \Telemetry\models\TelemetryDetailModel();
+    });
+
+    $container->set('soapWrapper', function () {
+        return new \Telemetry\Support\SoapWrapper();
+    });
 };
