@@ -1,12 +1,12 @@
 {% block content %}
     <div class="page-content-div">
-        <h2>{{ 'Telemetry access' }}</h2>
-        <form action="{{ action }}" method="post">
-            <fieldset>
-                <legend>Download your Telemetry data</legend>
-                <br>
-                <input id="download" name="download" type="submit" value="{{ initial_input_box_value }}" size="30" maxlength="50">
-            </fieldset>
-        </form>
+        <h2>{{ 'telemetry service' }}</h2>
+        <ul>
+            {% for item in telemetrydata %}
+                <li>{{ item }}</li>
+            {% else %}
+                <li>No telemetry data found.</li>
+            {% endfor %}
+        </ul>
     </div>
 {% endblock %}

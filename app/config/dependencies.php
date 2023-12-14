@@ -2,13 +2,15 @@
 
 declare (strict_types=1);
 
-use Telemetry\HomePageController;
-use Telemetry\HomePageView;
 use DI\Container;
-use Slim\Views\Twig;
 use Slim\App;
-use Telemetry\TelemetryController;
-use Telemetry\TelemetryView;
+use Slim\Views\Twig;
+use Telemetry\controllers\HomePageController;
+use Telemetry\controllers\TelemetryController;
+use Telemetry\models\TelemetryDetailModel;
+use Telemetry\Support\SoapWrapper;
+use Telemetry\Views\TelemetryView;
+use Telemetry\Views\HomePageView;
 
 return function (Container $container, App $app) {
     $settings = $app->getContainer()->get('settings');
@@ -37,6 +39,14 @@ return function (Container $container, App $app) {
     $container->set('telemetryController', function()
     {
         return new TelemetryController();
+    });
+
+    $container->set('telemetryModel', function() {
+        return new TelemetryDetailModel();
+    });
+
+    $container->set('soapWrapper', function () {
+        return new SoapWrapper();
     });
 
 

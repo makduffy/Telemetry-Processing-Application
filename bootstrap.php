@@ -11,7 +11,7 @@ if (session_start()) {
     require 'vendor/autoload.php';
 
     $base_dir = dirname(__DIR__);
-    $app_dir = $base_dir .'/Telemetry/app/';
+    $app_dir = $base_dir .'/telemetry/app/';
     $config_dir = $app_dir . 'config/';
     $routes_dir =  $app_dir . 'routes/';
 
@@ -21,7 +21,7 @@ if (session_start()) {
 
     $app = AppFactory::create();
 
-    $app->setBasePath('/Telemetry');
+    $app->setBasePath('/telemetry');
 
     $settings = require $config_dir . 'settings.php';
     $settings($container, $app_dir);
