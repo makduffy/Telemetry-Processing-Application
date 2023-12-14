@@ -8,7 +8,7 @@ class TelemetryView
     public function __destruct(){
     }
 
-    public function showTelemetryPage($view, $settings, $response, $telemetry_data): void
+    public function showTelemetryPage($view, $settings, $response, $fan_data, $heater_data, $switch_data, $keypad_data): void
     {
         $landing_page = $settings['landing_page'];
         $css_path = $settings['css_path'];
@@ -28,7 +28,10 @@ class TelemetryView
                 'legend' => 'S',
                 'method' => 'get',
                 'action' => '',
-                'telemetrydata' => $telemetry_data
+                'fandata' => $fan_data,
+                'heaterdata' => $heater_data,
+                'switchdata' => $switch_data,
+                'keypaddata' => $keypad_data,
             ]
         );
     }

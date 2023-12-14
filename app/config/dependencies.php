@@ -8,6 +8,7 @@ use Slim\Views\Twig;
 use Telemetry\controllers\HomePageController;
 use Telemetry\controllers\TelemetryController;
 use Telemetry\models\TelemetryDetailModel;
+use Telemetry\Support\DatabaseWrapper;
 use Telemetry\Support\SoapWrapper;
 use Telemetry\Views\TelemetryView;
 use Telemetry\Views\HomePageView;
@@ -47,6 +48,10 @@ return function (Container $container, App $app) {
 
     $container->set('soapWrapper', function () {
         return new SoapWrapper();
+    });
+
+    $container->set('databaseWrapper', function(){
+        return new DatabaseWrapper();
     });
 
 
