@@ -2,8 +2,9 @@
 {% block content %}
     <div id="page-content-div">
         <h1>{{ 'Register for telemtry services' }}</h1>
-        <form action="{{ action }}" method="post">
-            <fieldset class="cent">
+        <fieldset class="cent">
+            <form action="{{ action }}" method="post">
+
                 <legend>Create an account</legend>
                 <br>
                 <label for="username">Enter username: </label>
@@ -11,12 +12,13 @@
                 <br><br>
                 <label for="password">Enter your password: </label>
                 <input id="password" name="password" type="password" value="{{ initial_input_box_value }}" size="30" maxlength="50">
-                <label for="confirmPassword"></label>
-                <input id="confirmPassword" name="confirm password" type="password" value="{{ initial_input_box_value }}" size="30" maxlength="50">
                 <br><br>
                 <input type="submit" value="Create account">
+            </form>
+            <br>
+            <form  action="telemetrymain" method="get">
                 <input type="submit" value="Login">
-            </fieldset>
-        </form>
+            </form>
+        </fieldset>
     </div>
 {% endblock %}
