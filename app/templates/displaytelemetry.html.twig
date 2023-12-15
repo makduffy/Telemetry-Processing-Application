@@ -1,17 +1,27 @@
+{% extends 'banner.html.twig' %}
 {% block content %}
     <div class="page-content-div">
-        <h2>{{ 'telemetry service' }}</h2>
-        <ul>
-            {{ keypaddata }}
-        </ul>
-        <ul>
-            {{ switchdata }}
-        </ul>
-        <ul>
-            {{ fandata }}
-        </ul>
-        <ul>
-            {{ heaterdata }}
-        </ul>
+        <h1 class="cent">Telemetry Service</h1>
+        <fieldset class="cent">
+          <h2>{{ 'telemetry service' }}</h2>
+          <ul>
+              {{ keypaddata }}
+          </ul>
+          <br>
+          <br>
+          <ul>
+              {{ switchdata }}
+          </ul>
+          <br>
+          <br>
+          <ul>
+              {{ fandata }}
+          </ul>
+          <br>
+          <br>
+          <ul>
+              {{ heaterdata }}
+          </ul>
+        </fieldset>
     </div>
 {% endblock %}

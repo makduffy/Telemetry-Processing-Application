@@ -60,4 +60,8 @@ return function (Container $container, App $app) {
     });
 
 
+
+    $container->set('registerView', function(){
+        return new \Telemetry\views\RegisterView();
+    });
 };
