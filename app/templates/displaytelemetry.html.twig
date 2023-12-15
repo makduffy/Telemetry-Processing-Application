@@ -1,33 +1,36 @@
+{% extends 'banner.html.twig' %}
 {% block content %}
-    <div class="page-content-div">
-        <h2>{{ 'telemetry service' }}</h2>
-        <ul>
-            {% for item in keypaddata %}
-                <li>{{ item }}</li>
-            {% else %}
-                <li>No telemetry data found.</li>
-            {% endfor %}
-        </ul>
-        <ul>
-            {% for item in switchdata %}
-                <li>{{ item }}</li>
-            {% else %}
-                <li>No telemetry data found.</li>
-            {% endfor %}
-        </ul>
-        <ul>
-            {% for item in heaterdata %}
-                <li>{{ item }}</li>
-            {% else %}
-                <li>No telemetry data found.</li>
-            {% endfor %}
-        </ul>
-        <ul>
-            {% for item in fandata %}
-                <li>{{ item }}</li>
-            {% else %}
-                <li>No telemetry data found.</li>
-            {% endfor %}
-        </ul>
+    <div id="page-content-div">
+        <h1>{{ 'Telemetry Service' }}</h1>
+        <fieldset class="cent">
+            <ul>
+                 {% for item in keypaddata %}
+                    <li>{{ item }}</li>
+                 {% else %}
+                    <li>No telemetry data found.</li>
+                {% endfor %}
+            </ul>
+            <ul>
+                {% for item in switchdata %}
+                    <li>{{ item }}</li>
+                {% else %}
+                    <li>No telemetry data found.</li>
+                {% endfor %}
+            </ul>
+            <ul>
+                {% for item in heaterdata %}
+                    <li>{{ item }}</li>
+                {% else %}
+                    <li>No telemetry data found.</li>
+                {% endfor %}
+            </ul>
+            <ul>
+                {% for item in fandata %}
+                    <li>{{ item }}</li>
+                {% else %}
+                    <li>No telemetry data found.</li>
+                {% endfor %}
+            </ul>
+        </fieldset>
     </div>
 {% endblock %}

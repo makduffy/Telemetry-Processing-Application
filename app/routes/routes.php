@@ -13,3 +13,4 @@
 
 require 'homepage.php';
 require 'telemetrymain.php';
+require 'register.php';
