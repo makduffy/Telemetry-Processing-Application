@@ -60,10 +60,6 @@ class SQLQueries
         return $query_String;
     }
 
-    public function toString(array $Array)
-    {
-        return ("Switch 1= $Array[0] Sqitch ");
-    }
 
     public function deleteUser()
     {
