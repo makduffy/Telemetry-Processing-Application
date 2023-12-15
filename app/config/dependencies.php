@@ -54,5 +54,11 @@ return function (Container $container, App $app) {
         return new DatabaseWrapper();
     });
 
+    $container->set('registerController', function(){
+        return new \Telemetry\controllers\RegisterController();
+    });
 
+    $container->set('registerView', function(){
+        return new \Telemetry\views\RegisterView();
+    });
 };

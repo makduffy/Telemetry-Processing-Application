@@ -2,22 +2,23 @@
 {% block content %}
     <div id="page-content-div">
         <h1>{{ 'Telemetry Login Page' }}</h1>
-        <form action="{{ action }}" method="get">
-            <fieldset class="cent">
-                <legend class="cent">Login to Telemetry service</legend>
-                    <br>
-                    <label for="username">Enter username: </label>
-                    <input id="username" name="username" type="text" value="{{ initial_input_box_value }}" size="30" maxlength="50">
-                    <br><br>
-                    <label for="password">Enter your password: </label>
-                    <input id="password" name="password" type="password" value="{{ initial_input_box_value }}" size="30" maxlength="50">
-                    <br><br>
-                <input id="loginUser" type="submit" value="Login">
+        <h2>class="cent">Login to Telemetry service</h2>
+        <fieldset class="cent">
+            <form action="telemetrymain" method="get">
+                        <label for="username">Enter username: </label>
+                        <input id="username" name="username" type="text" value="{{ initial_input_box_value }}" size="30" maxlength="50">
+                        <br><br>
+                        <label for="password">Enter your password: </label>
+                        <input id="password" name="password" type="password" value="{{ initial_input_box_value }}" size="30" maxlength="50">
+                        <br><br>
+                    <input id="loginUser" type="submit" value="Login">
+            </form>
+            <form action="register" method="get">
                 <br><br>
                 <label for="createAccount">Don't have an account? </label>
                 <br><br>
                 <input id="createAccount" type="submit" value="Create an account">
-            </fieldset>
-        </form>
+            </form>
+        </fieldset>
     </div>
 {% endblock %}
