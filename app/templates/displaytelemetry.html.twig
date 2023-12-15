@@ -2,32 +2,16 @@
     <div class="page-content-div">
         <h2>{{ 'telemetry service' }}</h2>
         <ul>
-            {% for item in keypaddata %}
-                <li>{{ item }}</li>
-            {% else %}
-                <li>No telemetry data found.</li>
-            {% endfor %}
+            {{ keypaddata }}
         </ul>
         <ul>
-            {% for item in switchdata %}
-                <li>{{ item }}</li>
-            {% else %}
-                <li>No telemetry data found.</li>
-            {% endfor %}
+            {{ switchdata }}
         </ul>
         <ul>
-            {% for item in heaterdata %}
-                <li>{{ item }}</li>
-            {% else %}
-                <li>No telemetry data found.</li>
-            {% endfor %}
+            {{ fandata }}
         </ul>
         <ul>
-            {% for item in fandata %}
-                <li>{{ item }}</li>
-            {% else %}
-                <li>No telemetry data found.</li>
-            {% endfor %}
+            {{ heaterdata }}
         </ul>
     </div>
 {% endblock %}

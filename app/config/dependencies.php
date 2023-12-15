@@ -10,6 +10,7 @@ use Telemetry\controllers\TelemetryController;
 use Telemetry\models\TelemetryDetailModel;
 use Telemetry\Support\DatabaseWrapper;
 use Telemetry\Support\SoapWrapper;
+use Telemetry\Support\Validator;
 use Telemetry\Views\TelemetryView;
 use Telemetry\Views\HomePageView;
 
@@ -52,6 +53,10 @@ return function (Container $container, App $app) {
 
     $container->set('databaseWrapper', function(){
         return new DatabaseWrapper();
+    });
+
+    $container->set('validator', function(){
+        return new Validator();
     });
 
 

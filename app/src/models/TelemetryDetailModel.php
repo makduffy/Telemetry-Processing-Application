@@ -40,27 +40,5 @@ TelemetryDetailModel
 
     }
 
-    public function filterArray(array $telemetry_data, $identifier)
-    {
-        $filteredData = [];
-
-        foreach ($telemetry_data as $item) {
-            if (str_contains($item, $identifier)) {
-                $filteredData[] = $item;
-            }
-        }
-        return $filteredData;
-    }
-
-    public function sanitizeData($data): array
-    {
-        return array_map(function($item) {
-            if (preg_match('/<message>(.*?)<\/message>/', $item, $matches)) {
-                return $matches[1];
-            }
-            return '';
-        }, $data);
-    }
-
 }
 
