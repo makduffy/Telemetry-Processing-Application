@@ -1,34 +1,40 @@
 {% extends 'banner.html.twig' %}
 {% block content %}
-    <div id="page-content-div">
-        <h1>{{ 'Telemetry Service' }}</h1>
+    <div>
+        <h1>Telemetry Service</h1>
         <fieldset class="cent">
             <ul>
                  {% for item in keypaddata %}
-                    <li>{{ item }}</li>
+                    <p>{{ item }}</p>
                  {% else %}
-                    <li>No telemetry data found.</li>
+                    <p>No telemetry data found.</p>
                 {% endfor %}
             </ul>
+            <br>
+            <br>
             <ul>
                 {% for item in switchdata %}
-                    <li>{{ item }}</li>
+                    <p>{{ item }}</p>
                 {% else %}
-                    <li>No telemetry data found.</li>
+                    <p>No telemetry data found.</p>
                 {% endfor %}
             </ul>
+            <br>
+            <br>
             <ul>
                 {% for item in heaterdata %}
-                    <li>{{ item }}</li>
+                    <p>{{ item }}</p>
                 {% else %}
-                    <li>No telemetry data found.</li>
+                    <p>No telemetry data found.</p>
                 {% endfor %}
             </ul>
+            <br>
+            <br>
             <ul>
                 {% for item in fandata %}
-                    <li>{{ item }}</li>
+                    <p>{{ item }}</p>
                 {% else %}
-                    <li>No telemetry data found.</li>
+                    <p>No telemetry data found.</p>
                 {% endfor %}
             </ul>
         </fieldset>
