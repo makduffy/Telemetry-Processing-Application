@@ -31,6 +31,40 @@ class SQLQueries
         return $query_String;
     }
 
+    public function insertTelemetry()
+    {
+        $query_String = "INSERT INTO tblTelemetry ";
+        $query_String .= "SET ";
+        $query_String .= "switch_01 = :sanitised_switch01";
+        $query_String .= "switch_02 = :sanitised_switch02";
+        $query_String .= "switch_03 = :sanitised_switch03";
+        $query_String .= "switch_04 = :sanitised_switch04";
+        $query_String .= "fan = :sanitised_fan";
+        $query_String .= "heater = :sanitised_heater";
+        $query_String .= "keypad = :sanitised_keypad";
+        return $query_String;
+    }
+
+    public function displayTelemetry()
+    {
+        $query_String = "SELECT * FROM tblTelemetry ";
+        return $query_String;
+    }
+
+    public function getLatestTelemetry()
+    {
+        $query_String = "SELECT * FROM tblTelemetry ";
+        $query_String .= "ORDER BY ";
+        $query_String .= "date DESC";
+        $query_String .= "LIMIT 1";
+        return $query_String;
+    }
+
+    public function toString(array $Array)
+    {
+        return ("Switch 1= $Array[0] Sqitch ");
+    }
+
     public function deleteUser()
     {
         $query_String = "DELETE FROM tblUsers ";
@@ -43,7 +77,7 @@ class SQLQueries
 
     public function getUser()
     {
-        $query_String = "SELECT FROM tblUsers ";
+        $query_String = "SELECT * FROM tblUsers ";
         $query_String .= "WHERE ";
         $query_String .= "email = :login_email ";
         $query_String .= "AND ";
@@ -52,7 +86,20 @@ class SQLQueries
     }
 
     public function displayMessage(){
-        
+        $query_String = "SELECT * FROM tbltelemetry_data";
+
+        return $query_String;
     }
+
+    public function  getLatestMessage()
+    {
+        $query_String = "SELECT * FROM tbltelemetry_data";
+        $query_String .= "ORDER BY ";
+        $query_String .= "date DESC";
+        $query_String .= "LIMIT 1";
+        return $query_String;
+    }
+
+
 
 }
