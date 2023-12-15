@@ -4,6 +4,7 @@
 declare (strict_types=1);
 
 namespace Telemetry\models;
+
 class
 TelemetryDetailModel
 
@@ -17,11 +18,11 @@ TelemetryDetailModel
     {
     }
 
-    public function retrieveData($soap_wrapper, $settings): array
+    public function callTelemetryData($soap_wrapper, $settings): array
     {
         $username = '23_2635754';
         $password = 'DoorDash!!12';
-        $count = 4;
+        $count = 25;
         $deviceMSISDN = '+447452835992';
         $countryCode = '+44';
 
@@ -39,7 +40,27 @@ TelemetryDetailModel
 
     }
 
-    public function parseData(){
+    public function filterArray(array $telemetry_data, $identifier)
+    {
+        $filteredData = [];
 
+        foreach ($telemetry_data as $item) {
+            if (str_contains($item, $identifier)) {
+                $filteredData[] = $item;
+            }
+        }
+        return $filteredData;
     }
+
+    public function sanitizeData($data): array
+    {
+        return array_map(function($item) {
+            if (preg_match('/<message>(.*?)<\/message>/', $item, $matches)) {
+                return $matches[1];
+            }
+            return '';
+        }, $data);
+    }
+
 }
+
