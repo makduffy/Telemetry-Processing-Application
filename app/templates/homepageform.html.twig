@@ -1,10 +1,10 @@
 {% extends 'banner.html.twig' %}
 {% block content %}
     <div id="page-content-div">
-        <h1>{{ 'telemetry Login Page' }}</h1>
+        <h1>{{ 'Telemetry Login Page' }}</h1>
         <form action="{{ action }}" method="get">
-            <fieldset>
-                <legend>Login to Telemetry service</legend>
+            <fieldset class="cent">
+                <legend class="cent">Login to Telemetry service</legend>
                     <br>
                     <label for="username">Enter username: </label>
                     <input id="username" name="username" type="text" value="{{ initial_input_box_value }}" size="30" maxlength="50">
