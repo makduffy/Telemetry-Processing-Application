@@ -3,6 +3,8 @@
 declare (strict_types=1);
 
 use DI\Container;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use Slim\App;
 use Slim\Views\Twig;
 use Telemetry\controllers\HomePageController;
@@ -34,21 +36,25 @@ return function (Container $container, App $app) {
         return new HomePageView();
     });
 
-    $container->set('telemetryView', function () {
-        return new TelemetryView();
+    $container->set('telemetryView', function ($container) {
+        $logger = $container->get('logger');
+        return new TelemetryView($logger);
     });
 
-    $container->set('telemetryController', function()
+    $container->set('telemetryController', function($container)
     {
-        return new TelemetryController();
+        $logger = $container->get('logger');
+        return new TelemetryController($logger);
     });
 
-    $container->set('telemetryModel', function() {
-        return new TelemetryDetailModel();
+    $container->set('telemetryModel', function($container) {
+        $logger = $container->get('logger');
+        return new TelemetryDetailModel($logger);
     });
 
-    $container->set('soapWrapper', function () {
-        return new SoapWrapper();
+    $container->set('soapWrapper', function ($container) {
+        $logger = $container->get('logger');
+        return new SoapWrapper($logger);
     });
 
     $container->set('databaseWrapper', function(){
@@ -57,6 +63,13 @@ return function (Container $container, App $app) {
 
     $container->set('validator', function(){
         return new Validator();
+    });
+
+    $container->set('logger', function () {
+        $logger = new Logger('monologger');
+        $file_handler = new StreamHandler(__DIR__ . '/logs/app.log');
+        $logger->pushHandler($file_handler);
+        return $logger;
     });
 
 

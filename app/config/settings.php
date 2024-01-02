@@ -51,6 +51,16 @@ return function (Container $container, string $app_dir)
 
             ],
 
+            'M2M_Details' => [
+                'username' => '23_2635754',
+                'password' => 'DoorDash!!12',
+                'count' => '25',
+                'deviceMSISDN' => '+447452835992',
+                'countryCode' => '+44'
+            ]
+
+
+
         ];
     });
 };
