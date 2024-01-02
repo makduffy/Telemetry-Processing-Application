@@ -1,9 +1,15 @@
 <?php
 declare(strict_types=1);
 namespace Telemetry\views;
+use Psr\Log\LoggerInterface;
+
 class TelemetryView
 {
-    public function __construct(){
+    private $logger;
+
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
     }
     public function __destruct(){
     }
@@ -14,7 +20,7 @@ class TelemetryView
         $css_path = $settings['css_path'];
         $application_name = $settings['application_name'];
 
-
+        $this->logger->info("Rendering Telemetry page");
         $view->render(
             $response,
             'displaytelemetry.html.twig',
@@ -34,6 +40,7 @@ class TelemetryView
                 'keypaddata' => $keypad_data,
             ]
         );
+        $this->logger->info("Telemetry page rendered successfully.");
     }
 
 }

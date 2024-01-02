@@ -5,13 +5,16 @@ declare (strict_types=1);
 
 namespace Telemetry\models;
 
-class
-TelemetryDetailModel
+use Psr\Log\LoggerInterface;
+
+class TelemetryDetailModel
 
 {
+    private $logger;
 
-    public function __construct()
+    public function __construct(LoggerInterface $logger)
     {
+        $this->logger = $logger;
     }
 
     public function __destruct()
@@ -20,6 +23,8 @@ TelemetryDetailModel
 
     public function callTelemetryData($soap_wrapper, $settings): array
     {
+        $this->logger->info("Initiating call to telemetry data.");
+
         $username = '23_2635754';
         $password = 'DoorDash!!12';
         $count = 25;
@@ -36,8 +41,9 @@ TelemetryDetailModel
         $webservice_function = ('peekMessages');
         $soap_client_handle = $soap_wrapper->createSoapClient($settings);
 
-        return $soap_wrapper->performSoapCall($soap_client_handle, $webservice_function, $webservice_call_parameters);
-
+        $result =  $soap_wrapper->performSoapCall($soap_client_handle, $webservice_function, $webservice_call_parameters);
+        $this->logger->info("Telemetry data call completed successfully.");
+        return $result;
     }
 
 }
