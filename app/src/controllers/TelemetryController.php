@@ -4,7 +4,8 @@ namespace Telemetry\controllers;
 
 use Monolog\Logger;
 
-class TelemetryController {
+class TelemetryController
+{
 
     private Logger $logger;
 
@@ -12,6 +13,7 @@ class TelemetryController {
     {
         $this->logger = $logger;
     }
+
     public function createHtmlOutput(object $container, object $request, object $response): void
     {
 
@@ -43,4 +45,5 @@ class TelemetryController {
             $this->logger->error("Unsuccessfully created HTML Output");
 
         }
+    }
 }
