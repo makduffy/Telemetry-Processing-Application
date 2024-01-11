@@ -3,24 +3,33 @@
     <div class="page-content-div">
         <h1 class="cent">Telemetry Service</h1>
         <fieldset class="cent">
-          <ul>
-              {{ keypaddata }}
-          </ul>
-          <br>
-          <br>
-          <ul>
-              {{ switchdata }}
-          </ul>
-          <br>
-          <br>
-          <ul>
-              {{ fandata }}
-          </ul>
-          <br>
-          <br>
-          <ul>
-              {{ heaterdata }}
-          </ul>
+            <h2>Keypad Data</h2>
+            <ul>
+                {% for entry in keypaddata %}
+                    <li>{{ entry.value }} - {{ entry.metadata }}</li>
+                {% endfor %}
+            </ul>
+
+            <h2>Switch Data</h2>
+            <ul>
+                {% for entry in switchdata %}
+                    <li>{{ entry.value }} - {{ entry.metadata }}</li>
+                {% endfor %}
+            </ul>
+
+            <h2>Fan Data</h2>
+            <ul>
+                {% for entry in fandata %}
+                    <li>{{ entry.value }} - {{ entry.metadata }}</li>
+                {% endfor %}
+            </ul>
+
+            <h2>Heater Data</h2>
+            <ul>
+                {% for entry in heaterdata %}
+                    <li>{{ entry.value }} - {{ entry.metadata }}</li>
+                {% endfor %}
+            </ul>
         </fieldset>
     </div>
 {% endblock %}
