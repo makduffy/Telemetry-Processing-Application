@@ -34,7 +34,33 @@ return function (Container $container, string $app_dir)
                 ],
             ],
 
-            'pdo_settings' => [
+            'doctrine' => [
+                'meta' => [
+                    'entity_path' => [$app_dir . 'src/Entities'],
+                    'auto_generate_proxies' => true,
+                    'proxy_dir' => $app_dir . 'cache/proxies',
+                    'cache' => null,
+                ],
+                'doctrine_connection' => [
+                    'driver' => 'pdo_mysql',
+                    'host' => 'localhost',
+                    'port' => '3306',
+                    'charset' => 'utf8mb4',
+                    'user'     => 'telemetry_user',
+                    'dbname'   => 'telemetry',
+                    'password' => 'telemetry12',
+                ],
+            ],
+
+            'M2M_Details' => [
+                'username' => '23_2635754',
+                'password' => 'DoorDash!!12',
+                'count' => '25',
+                'deviceMSISDN' => '+447452835992',
+                'countryCode' => '+44'
+            ]
+
+            /*'pdo_settings' => [
                 'rdbms' => 'mysql',
                 'host' => 'mariadb.dmu.ac.uk',
                 'db_name' => 'p2599966db',
@@ -48,19 +74,8 @@ return function (Container $container, string $app_dir)
                     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                     PDO::ATTR_EMULATE_PREPARES   => true
                 ],
-
             ],
-
-            'M2M_Details' => [
-                'username' => '23_2635754',
-                'password' => 'DoorDash!!12',
-                'count' => '25',
-                'deviceMSISDN' => '+447452835992',
-                'countryCode' => '+44'
-            ]
-
-
-
+             */
         ];
     });
 };
