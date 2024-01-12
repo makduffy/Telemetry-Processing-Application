@@ -22,33 +22,31 @@
                     {{ heaterdata }}
             </ul>
         </fieldset>
+        <h1 class="cent"> META DATA</h1>
         <fieldset class="cent">
-            <h2>Keypad Data</h2>
+
+            <h2>Created At</h2>
             <ul>
-                {% for item, metadata in keypadmetadata %}
-                    <li>{{ item }} - {{ metadata }}</li>
-                {% endfor %}
+
+            </ul>
+            <h2>MSISDN</h2>
+            <ul>
+
             </ul>
 
-            <h2>Switch Data</h2>
+            <h2>Target MSISDN</h2>
             <ul>
-                {% for item, metadata in switchmetadata %}
-                    <li>{{ item }} - {{ metadata }}</li>
-                {% endfor %}
+
             </ul>
 
-            <h2>Fan Data</h2>
+            <h2>Date</h2>
             <ul>
-                {% for item, metadata in fanmetadata %}
-                    <li>{{ item }} - {{ metadata }}</li>
-                {% endfor %}
+
             </ul>
 
-            <h2>Heater Data</h2>
+            <h2>Message</h2>
             <ul>
-                {% for item, metadata in heatermetadata %}
-                    <li>{{ item }} - {{ metadata }}</li>
-                {% endfor %}
+
             </ul>
         </fieldset>
     </div>

@@ -174,7 +174,12 @@ return function (Container $container, App $app) {
      * @return RegisterView
      */
 
-    $container->set('registerView', function(){
-        return new RegisterView();
+    $container->set('RegisterUserView', function(){
+        return new Telemetry\Views\RegisterUserView();
     });
+
+    $container->set('RegisterUserController', function(){
+        return new Telemetry\controllers\RegisterUserController();
+    });
+
 };
