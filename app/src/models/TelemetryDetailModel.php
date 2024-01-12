@@ -46,6 +46,7 @@ class TelemetryDetailModel
 
         $result = $soap_wrapper->performSoapCall($soap_client_handle, $webservice_function, $webservice_call_parameters);
         $this->logger->info("Telemetry data call completed successfully.");
+
         return $result;
     }
     public function storeTelemetryData($fanData, $heaterData, $switch1Data, $switch2Data, $switch3Data, $switch4Data, $keypadData): void
