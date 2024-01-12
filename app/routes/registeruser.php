@@ -5,17 +5,15 @@ global $app, $app;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-$app->get(
-    '/register',
+$app->post(
+    '/registeruser',
     function(Request $request, Response $response)
     use ($app)
     {
         $container = $app->getContainer();
 
-        $home_page_controller = $container->get('registerController');
-        $home_page_controller->createHtmlOutput($container, $request, $response);
+        $registeruser_controller = $container->get('registerUserController');
+        $registeruser_controller->createHtmlOutput($container, $request, $response);
         return $response;
     }
-
-
 );
