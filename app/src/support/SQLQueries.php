@@ -10,7 +10,7 @@ class SQLQueries
 
     public function insertMessage()
     {
-        $query_string = "INSERT INTO tblTelemetry_Data ";
+        $query_string = "INSERT INTO telemetry_data ";
         $query_string .= "SET ";
         $query_string .= "msisdn = 447452835992";
         $query_string .= "target_msisdn = :target_msisdn";
