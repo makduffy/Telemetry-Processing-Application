@@ -3,6 +3,11 @@
 declare (strict_types=1);
 
 use DI\Container;
+use Doctrine\DBAL\DriverManager;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\ORMSetup;
+use Doctrine\ORM\Tools\Setup;
+use DoctrineSessions\Support\DoctrineSqlQueries;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Slim\App;
@@ -49,7 +54,8 @@ return function (Container $container, App $app) {
 
     $container->set('telemetryModel', function($container) {
         $logger = $container->get('logger');
-        return new TelemetryDetailModel($logger);
+        $entityManager = $container->get('entityManager');
+        return new TelemetryDetailModel($logger, $entityManager);
     });
 
     $container->set('soapWrapper', function ($container) {
@@ -72,7 +78,20 @@ return function (Container $container, App $app) {
         return $logger;
     });
 
+    $container->set('entityManager', function ($c) {
+        $settings = $c->get('settings')['doctrine'];
 
+        $dbConnection = DriverManager::getConnection($settings['doctrine_connection']);
+        $config = Setup::createAnnotationMetadataConfiguration(
+            $settings['meta']['entity_path'],
+            $settings['meta']['auto_generate_proxies'],
+            $settings['meta']['proxy_dir'],
+            $settings['meta']['cache'],
+            false
+        );
+
+        return new EntityManager($dbConnection, $config);
+    });
 
     $container->set('registerView', function(){
         return new \Telemetry\views\RegisterView();
