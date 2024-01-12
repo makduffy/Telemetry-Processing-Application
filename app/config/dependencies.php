@@ -15,12 +15,18 @@ use Telemetry\Support\SoapWrapper;
 use Telemetry\Support\Validator;
 use Telemetry\Views\TelemetryView;
 use Telemetry\Views\HomePageView;
+use Doctrine\DBAL\DriverManager;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\ORMSetup;
+use Doctrine\ORM\Tools\Setup;
+use DoctrineSessions\Support\DoctrineSqlQueries;
 
 /**
  * Configures services and settings for the Slim application
  *
- * @param Container %container The dependency injection container
+ * @param Container $container The dependency injection container
  * @param App $app The slim application instance
+ *
  */
 
 return function (Container $container, App $app) {
@@ -97,7 +103,8 @@ return function (Container $container, App $app) {
 
     $container->set('telemetryModel', function($container) {
         $logger = $container->get('logger');
-        return new TelemetryDetailModel($logger);
+        $entityManager = $container->get('entityManager');
+        return new TelemetryDetailModel($logger, $entityManager);
     });
 
     /**
@@ -124,7 +131,7 @@ return function (Container $container, App $app) {
     });
 
     /**
-     * Creates an insstance of Validator
+     * Creates an instance of Validator
      *
      * @return Validator
      */
@@ -146,6 +153,20 @@ return function (Container $container, App $app) {
         return $logger;
     });
 
+    $container->set('entityManager', function ($c) {
+        $settings = $c->get('settings')['doctrine'];
+
+        $dbConnection = DriverManager::getConnection($settings['doctrine_connection']);
+        $config = Setup::createAnnotationMetadataConfiguration(
+            $settings['meta']['entity_path'],
+            $settings['meta']['auto_generate_proxies'],
+            $settings['meta']['proxy_dir'],
+            $settings['meta']['cache'],
+            false
+        );
+
+        return new EntityManager($dbConnection, $config);
+    });
 
     /**
      * Creates an instance of RegisterView.
