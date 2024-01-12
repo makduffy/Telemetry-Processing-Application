@@ -6,28 +6,28 @@
             <h2>Keypad Data</h2>
             <ul>
                 {% for entry in keypaddata %}
-                    <li>{{ entry.value }} - {{ entry.metadata }}</li>
+                    <li>{{ keypaddata }} - {{ entry.metadata }}</li>
                 {% endfor %}
             </ul>
 
             <h2>Switch Data</h2>
             <ul>
                 {% for entry in switchdata %}
-                    <li>{{ entry.value }} - {{ entry.metadata }}</li>
+                    <li>{{ switchdata }} - {{ entry.metadata }}</li>
                 {% endfor %}
             </ul>
 
             <h2>Fan Data</h2>
             <ul>
                 {% for entry in fandata %}
-                    <li>{{ entry.value }} - {{ entry.metadata }}</li>
+                    <li>{{ fandata }} - {{ entry.metadata }}</li>
                 {% endfor %}
             </ul>
 
             <h2>Heater Data</h2>
             <ul>
                 {% for entry in heaterdata %}
-                    <li>{{ entry.value }} - {{ entry.metadata }}</li>
+                    <li>{{ heaterdata }} - {{ entry.metadata }}</li>
                 {% endfor %}
             </ul>
         </fieldset>
