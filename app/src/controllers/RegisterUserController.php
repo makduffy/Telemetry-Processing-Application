@@ -29,11 +29,6 @@ class RegisterUserController
          */
         $register_user_view = $container->get('RegisterUserView');
 
-        /**
-         * Retrieves the main view renderer from the container.
-         *
-         * @var Twig $view
-         */
         $view = $container->get('view');
 
         /**
