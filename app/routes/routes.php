@@ -1,16 +1,12 @@
 <?php
 /**
- * routes.php
+ *requiring necessary files.
  *
- * routes to features
+ * This script includes the essential files required for the application to function,
+ * such as 'homepage.php', 'telemetrymain.php', and 'registeruser.php'.
  *
- * Author: CF Ingrams
- * Email: <clinton@cfing.co.uk>
- * Date: 18/10/2015
- *
- * @author CF Ingrams <clinton@cfing.co.uk>
  */
 
 require 'homepage.php';
 require 'telemetrymain.php';
-require 'register.php';
+require 'registeruser.php';

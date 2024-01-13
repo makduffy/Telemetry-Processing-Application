@@ -1,9 +1,9 @@
 {% extends 'banner.html.twig' %}
 {% block content %}
     <div id="page-content-div">
-        <h1>{{ 'Register for telemtry services' }}</h1>
+        <h1 class="cent">{{ 'Register for telemtry services' }}</h1>
         <fieldset class="cent">
-            <form action="{{ action }}" method="post">
+            <form action="{{ action }}" method="get">
 
                 <legend>Create an account</legend>
                 <br>
@@ -16,9 +16,9 @@
                 <input type="submit" value="Create account">
             </form>
             <br>
-            <form  action="telemetrymain" method="get">
-                <input type="submit" value="Login">
-            </form>
+            <a href="/telemetry/">
+                <button>Log In</button>
+            </a>
         </fieldset>
     </div>
 {% endblock %}

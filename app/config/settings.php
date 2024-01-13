@@ -3,6 +3,15 @@ declare (strict_types=1);
 
 use DI\Container;
 
+/**
+ * Configures services and settings for the Slim application.
+ *
+ * @param Container $container The dependency injection container.
+ * @param string $app_dir The base directory path of the application.
+ *
+ * @return array The configured settings array.
+ */
+
 return function (Container $container, string $app_dir)
 {
     $app_url = dirname($_SERVER['SCRIPT_NAME']);
@@ -56,7 +65,7 @@ return function (Container $container, string $app_dir)
                 'username' => '23_2635754',
                 'password' => 'DoorDash!!12',
                 'count' => '25',
-                'deviceMSISDN' => '+447452835992',
+                'deviceMSISDN' => '+447399474455',
                 'countryCode' => '+44'
             ]
 

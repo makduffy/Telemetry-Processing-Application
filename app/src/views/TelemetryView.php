@@ -3,6 +3,12 @@ declare(strict_types=1);
 namespace Telemetry\views;
 use Psr\Log\LoggerInterface;
 
+/**
+ * Class TelemetryView
+ *
+ * View class for rendering the telemetry page.
+*/
+
 class TelemetryView
 {
     private $logger;
@@ -14,7 +20,11 @@ class TelemetryView
     public function __destruct(){
     }
 
+
     public function showTelemetryPage($view, $settings, $response, $telemetry_data): void
+
+
+
     {
         $landing_page = $settings['landing_page'];
         $css_path = $settings['css_path'];

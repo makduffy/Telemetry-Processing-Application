@@ -8,6 +8,15 @@ class TelemetryController
 
 
     public function createHtmlOutput(object $container, object $request, object $response): void
+ * Class TelemetryController
+ *
+ * Controller for handling telemetry-related functionality
+ *
+ */
+
+class TelemetryController
+{
+
     {
         $view = $container->get('view');
         $settings = $container->get('settings');
@@ -30,7 +39,18 @@ class TelemetryController
         }
     }
 
+
     public function fetchAndStoreData(object $container)
+
+    /** Creates HTML output for telemetry page
+     *
+     * @param object $container
+     * @param object $request
+     * @param object $response
+     *
+     * @return void
+     */
+
     {
 
         $soap_wrapper = $container->get('soapWrapper');
@@ -39,6 +59,7 @@ class TelemetryController
         $logger = $container->get('logger');
 
         try {
+
 
             $messages = $telemetry_model->callTelemetryData($soap_wrapper, $settings);
 
@@ -65,6 +86,7 @@ class TelemetryController
                     $logger->error("Error processing individual message: " . $innerException->getMessage());
                 }
             }
+
         } catch (\Exception $e) {
             $logger->error("Error in fetchAndStoreData: " . $e->getMessage());
         }

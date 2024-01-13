@@ -3,11 +3,6 @@
 declare (strict_types=1);
 
 use DI\Container;
-use Doctrine\DBAL\DriverManager;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\ORMSetup;
-use Doctrine\ORM\Tools\Setup;
-use DoctrineSessions\Support\DoctrineSqlQueries;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Slim\App;
@@ -20,11 +15,30 @@ use Telemetry\Support\SoapWrapper;
 use Telemetry\Support\Validator;
 use Telemetry\Views\TelemetryView;
 use Telemetry\Views\HomePageView;
+use Doctrine\DBAL\DriverManager;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\ORMSetup;
+use Doctrine\ORM\Tools\Setup;
+use DoctrineSessions\Support\DoctrineSqlQueries;
+
+/**
+ * Configures services and settings for the Slim application
+ *
+ * @param Container $container The dependency injection container
+ * @param App $app The slim application instance
+ *
+ */
 
 return function (Container $container, App $app) {
     $settings = $app->getContainer()->get('settings');
     $template_path = $settings['view']['template_path'];
     $cache_path = $settings['view']['cache_path'];
+
+    /**
+     * Sets up the Twig template engine for rendering views
+     *
+     * @return Twig
+     */
 
     $container->set('view', function () use ($template_path, $cache_path) {
         {
@@ -33,22 +47,62 @@ return function (Container $container, App $app) {
     }
     );
 
+    /**
+     * Creates an instance of HomePageController
+     *
+     * @return HomePageController
+     *
+     */
+
     $container->set('homePageController', function () {
         return new HomePageController();
     });
 
+    /**
+     * Creates an instance of HomePageView
+     *
+     * @return HomePageView
+     *
+     */
+
     $container->set('homePageView', function () {
         return new HomePageView();
     });
+
+    /**
+     * Creates an instance of TelemetryView
+     *
+     * @return TelemetryView
+     *
+     */
 
     $container->set('telemetryView', function ($container) {
         $logger = $container->get('logger');
         return new TelemetryView($logger);
     });
 
-    $container->set('telemetryController', function($container) {
-        return new TelemetryController();
+
+
+    /**
+     * Creates an instance of TelemetryController
+     *
+     * @return TelemetryController
+     *
+     */
+
+    $container->set('telemetryController', function($container)
+    {
+        $logger = $container->get('logger');
+        return new TelemetryController($logger);
+
     });
+
+    /**
+     * Creates an instance of TelemetryDetailModel
+     *
+     * @return TelemetryDetailModel
+     *
+     */
 
     $container->set('telemetryModel', function($container) {
         $logger = $container->get('logger');
@@ -56,18 +110,44 @@ return function (Container $container, App $app) {
         return new TelemetryDetailModel($logger, $entityManager);
     });
 
+    /**
+     * Creates an instance of SoapWrapper
+     *
+     * @return SoapWrapper
+     *
+     */
+
     $container->set('soapWrapper', function ($container) {
         $logger = $container->get('logger');
         return new SoapWrapper($logger);
     });
 
+    /**
+     * Creates an instance of DatabaseWrapper
+     *
+     * @return DatabaseWrapper
+     *
+     */
+
     $container->set('databaseWrapper', function(){
         return new DatabaseWrapper();
     });
 
+    /**
+     * Creates an instance of Validator
+     *
+     * @return Validator
+     */
+
     $container->set('validator', function(){
         return new Validator();
     });
+
+    /**
+     * Creates a Monolog logger instance
+     *
+     * @return $logger
+     */
 
     $container->set('logger', function () {
         $logger = new Logger('monologger');
@@ -91,7 +171,18 @@ return function (Container $container, App $app) {
         return new EntityManager($dbConnection, $config);
     });
 
-    $container->set('registerView', function(){
-        return new \Telemetry\views\RegisterView();
+    /**
+     * Creates an instance of RegisterView.
+     *
+     * @return RegisterView
+     */
+
+    $container->set('RegisterUserView', function(){
+        return new Telemetry\Views\RegisterUserView();
     });
+
+    $container->set('RegisterUserController', function(){
+        return new Telemetry\controllers\RegisterUserController();
+    });
+
 };
