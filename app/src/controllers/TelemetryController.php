@@ -2,9 +2,12 @@
 declare (strict_types=1);
 namespace Telemetry\controllers;
 
-use Monolog\Logger;
+class TelemetryController
+{
 
-/**
+
+
+    public function createHtmlOutput(object $container, object $request, object $response): void
  * Class TelemetryController
  *
  * Controller for handling telemetry-related functionality
@@ -14,16 +17,30 @@ use Monolog\Logger;
 class TelemetryController
 {
 
-    /** @var Logger An instance of logger */
-    private Logger $logger;
-
-    /**
-     * TelemetryController constructor
-     */
-    public function __construct(Logger $logger)
     {
-        $this->logger = $logger;
+        $view = $container->get('view');
+        $settings = $container->get('settings');
+        $telemetry_view = $container->get('telemetryView');
+        $telemetry_model = $container->get('telemetryModel');
+        $logger = $container->get('logger');
+
+        $logger->info("Creating HTML Output...");
+
+        try {
+
+            $telemetry_data = $telemetry_model->getLatestTelemetryData();
+
+            $logger->info("Rendering the telemetry page.");
+            $telemetry_view->showTelemetryPage($view, $settings, $response, $telemetry_data);
+            $logger->info("Successfully rendered the telemetry page.");
+
+        } catch (\Exception $e) {
+            $logger->error("Unsuccessfully created HTML Output");
+        }
     }
+
+
+    public function fetchAndStoreData(object $container)
 
     /** Creates HTML output for telemetry page
      *
@@ -34,67 +51,44 @@ class TelemetryController
      * @return void
      */
 
-    public function createHtmlOutput(object $container, object $request, object $response): void
     {
 
-        $this->logger->info("Creating HTML Output...");
+        $soap_wrapper = $container->get('soapWrapper');
+        $settings = $container->get('settings');
+        $telemetry_model = $container->get('telemetryModel');
+        $logger = $container->get('logger');
+
         try {
-            // Retrieve necessary components from container
-            $view = $container->get('view');
-            $settings = $container->get('settings');
-            $telemetry_view = $container->get('telemetryView');
-            $telemetry_model = $container->get('telemetryModel');
-            $soap_wrapper = $container->get('soapWrapper');
-            $validator = $container->get('validator');
-
-            // Call the telemetry data and perform necessary operations
-            $telemetry_data = $telemetry_model->callTelemetryData($soap_wrapper, $settings);
-            var_dump($telemetry_data);
-            $fan_data = $validator->filterArray($telemetry_data, 'fan');
-            $heater_data = $validator->filterArray($telemetry_data, 'heater');
-            $keypad_data = $validator->filterArray($telemetry_data, 'keypad');
-            $switch1_data = $validator->filterArray($telemetry_data, 'switch1');
-            $switch2_data = $validator->filterArray($telemetry_data, 'switch2');
-            $switch3_data = $validator->filterArray($telemetry_data, 'switch3');
-            $switch4_data = $validator->filterArray($telemetry_data, 'switch4');
-            var_dump($fan_data);
-            $fan_data_string = $validator->sanitizeData($fan_data);
-            $heater_data_string = $validator->sanitizeData($heater_data);
-            $switch1_data_string = $validator->sanitizeData($switch1_data);
-            $switch2_data_string = $validator->sanitizeData($switch2_data);
-            $switch3_data_string = $validator->sanitizeData($switch3_data);
-            $switch4_data_string = $validator->sanitizeData($switch4_data);
-            $keypad_data_string = $validator->sanitizeData($keypad_data);
-            var_dump($fan_data_string);
 
 
-            // Store sanitized telemetry data if conditions are met
+            $messages = $telemetry_model->callTelemetryData($soap_wrapper, $settings);
 
-            if (
-                $fan_data_string !== null ||
-                $heater_data_string !== null ||
-                $switch1_data_string !== null ||
-                $switch2_data_string !== null ||
-                $switch3_data_string !== null ||
-                $switch4_data_string !== null
-            ) {
-                $telemetry_model->storeTelemetryData(
-                    $fan_data_string,
-                    $heater_data_string,
-                    $switch1_data_string,
-                    $switch2_data_string,
-                    $switch3_data_string,
-                    $switch4_data_string,
-                    $keypad_data_string
-                );
+            foreach ($messages as $xmlString) {
+                try {
+
+                    $processedData = $telemetry_model->processMessage($xmlString);
+                    $receivedTime = $processedData['receivedTime'];
+                    $receivedTime = \DateTime::createFromFormat('d/m/Y H:i:s', $receivedTime);
+
+                    if ($telemetry_model->isDataNew($receivedTime)) {
+                        $fanData = $processedData['fanData'] ?? null;
+                        $heaterData = $processedData['heaterData'] ?? null;
+                        $keypadData = $processedData['keypadData'] ?? null;
+                        $switch1Data = $processedData['switch1Data'] ?? null;
+                        $switch2Data = $processedData['switch2Data'] ?? null;
+                        $switch3Data = $processedData['switch3Data'] ?? null;
+                        $switch4Data = $processedData['switch4Data'] ?? null;
+
+                        $telemetry_model->storeTelemetryData($fanData, $heaterData, $switch1Data, $switch2Data, $switch3Data, $switch4Data, $keypadData);
+                    }
+
+                } catch (\Exception $innerException) {
+                    $logger->error("Error processing individual message: " . $innerException->getMessage());
+                }
             }
-            $this->logger->info("Rendering the telemetry page.");
 
-            //Render the telemetry page with sanitized data
-            $telemetry_view->showTelemetryPage($view, $settings, $response, $fan_data_string, $heater_data_string, $switch1_data_string, $switch2_data_string, $switch3_data_string, $switch4_data_string,$keypad_data_string);
-            $this->logger->info("Successfully rendered the telemetry page.");
         } catch (\Exception $e) {
-            $this->logger->error("Unsuccessfully created HTML Output");
+            $logger->error("Error in fetchAndStoreData: " . $e->getMessage());
         }
     }
 }

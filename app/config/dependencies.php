@@ -81,6 +81,8 @@ return function (Container $container, App $app) {
         return new TelemetryView($logger);
     });
 
+
+
     /**
      * Creates an instance of TelemetryController
      *
@@ -92,6 +94,7 @@ return function (Container $container, App $app) {
     {
         $logger = $container->get('logger');
         return new TelemetryController($logger);
+
     });
 
     /**

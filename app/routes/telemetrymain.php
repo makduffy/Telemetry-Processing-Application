@@ -13,6 +13,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
 $app->get('/telemetrymain', function (Request $request, Response $response) use ($app) {
+
     $container = $app->getContainer();
     /**
      * Retrieves the telemetry controller from the container.
@@ -27,6 +28,7 @@ $app->get('/telemetrymain', function (Request $request, Response $response) use 
      */
     $logger = $container->get('logger');
 
+    $telemetry_controller->fetchAndStoreData($container, $response);
     try {
         // Invokes the method to create HTML output for the telemetry main page.
         $telemetry_controller->createHtmlOutput($container, $request, $response);

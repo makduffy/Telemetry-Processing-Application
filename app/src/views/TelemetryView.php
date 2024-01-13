@@ -21,12 +21,23 @@ class TelemetryView
     }
 
 
+    public function showTelemetryPage($view, $settings, $response, $telemetry_data): void
 
-    public function showTelemetryPage($view, $settings, $response, $fan_data, $heater_data, $switch1_data, $switch2_data, $switch3_data, $switch4_data, $keypad_data): void
+
+
     {
         $landing_page = $settings['landing_page'];
         $css_path = $settings['css_path'];
         $application_name = $settings['application_name'];
+
+        $fan_data = $telemetry_data->getFanData();
+        $heater_data = $telemetry_data->getHeaterData();
+        $switch1_data = $telemetry_data->getSwitch1Data();
+        $switch2_data = $telemetry_data->getSwitch2Data();
+        $switch3_data = $telemetry_data->getSwitch3Data();
+        $switch4_data = $telemetry_data->getSwitch4Data();
+        $keypad_data = $telemetry_data->getKeypadData();
+
 
         $this->logger->info("Rendering Telemetry page");
         $view->render(
