@@ -1,10 +1,33 @@
 {% extends 'banner.html.twig' %}
 {% block content %}
+
+<style>
+    .cent {
+        text-align: center;
+        margin: auto;
+    }
+
+    table.cent {
+        margin: auto;
+        text-align: center; /* Center text within table cells */
+    }
+
+    fieldset {
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+
+
+</style>
+
     <div class="page-content-div">
         <h1 class="cent">Telemetry Service</h1>
         <fieldset class="cent">
-          <h2>{{ 'Display Telemetry data' }}</h2>
-            <table>
+            <h2>{{ 'Display Telemetry data' }}</h2>
+            <table class="cent">
                 <thead>
                 <tr>
                     <th>KeyPad Data</th>
@@ -13,20 +36,19 @@
                     <th>Swtich3 Data</th>
                     <th>Swtich4 Data</th>
                     <th>Fan Data</th>
-                    <th>Heater Data </th>
+                    <th>Heater Data</th>
                 </tr>
                 </thead>
                 <tbody>
-
-                  <tr>
-                        <td>{{ keypaddata }} </td>
-                        <td>{{ switch1data }} </td>
-                        <td>{{ switch2data }} </td>
-                        <td>{{ switch3data }} </td>
-                        <td>{{ switch4data }}</td>
-                        <td>{{ fandata }} </td>
-                        <td>{{ heaterdata }}</td>
-                   </tr>
+                <tr>
+                    <td>{{ keypaddata }}</td>
+                    <td>{{ switch1data }}</td>
+                    <td>{{ switch2data }}</td>
+                    <td>{{ switch3data }}</td>
+                    <td>{{ switch4data }}</td>
+                    <td>{{ fandata }}</td>
+                    <td>{{ heaterdata }}</td>
+                </tr>
                 </tbody>
             </table>
         </fieldset>
@@ -34,29 +56,15 @@
         <fieldset class="cent">
 
             <h2>Created At</h2>
-            <ul>
-
-            </ul>
+            <p></p>
             <h2>MSISDN</h2>
-            <ul>
-
-            </ul>
-
+            <p></p>
             <h2>Target MSISDN</h2>
-            <ul>
-
-            </ul>
-
+            <p></p>
             <h2>Date</h2>
-            <ul>
-
-            </ul>
-
+            <p></p>
             <h2>Message</h2>
-            <ul>
-
-            </ul>
-
+            <p></p>
         </fieldset>
     </div>
 {% endblock %}
