@@ -5,17 +5,7 @@ namespace Telemetry\controllers;
 class TelemetryController
 {
 
-
-
     public function createHtmlOutput(object $container, object $request, object $response): void
- * Class TelemetryController
- *
- * Controller for handling telemetry-related functionality
- *
- */
-
-class TelemetryController
-{
 
     {
         $view = $container->get('view');
