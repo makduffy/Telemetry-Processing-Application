@@ -23,7 +23,11 @@ class TelemetryView
         $fan_data = $telemetry_data->getFanData();
         $heater_data = $telemetry_data->getHeaterData();
         $switch1_data = $telemetry_data->getSwitch1Data();
+        $switch2_data = $telemetry_data->getSwitch2Data();
+        $switch3_data = $telemetry_data->getSwitch3Data();
+        $switch4_data = $telemetry_data->getSwitch4Data();
         $keypad_data = $telemetry_data->getKeypadData();
+
 
         $this->logger->info("Rendering Telemetry page");
         $view->render(
@@ -42,6 +46,9 @@ class TelemetryView
                 'fandata' => $fan_data,
                 'heaterdata' => $heater_data,
                 'switch1data' => $switch1_data,
+                'switch2data' => $switch2_data,
+                'switch3data' => $switch3_data,
+                'switch4data' => $switch4_data,
                 'keypaddata' => $keypad_data,
             ]
         );

@@ -46,11 +46,8 @@ return function (Container $container, App $app) {
         return new TelemetryView($logger);
     });
 
-    $container->set('telemetryController', function($container)
-    {
-        $logger = $container->get('logger');
-        $telemetryModel = $container->get('telemetryModel');
-        return new TelemetryController($logger, $telemetryModel);
+    $container->set('telemetryController', function($container) {
+        return new TelemetryController();
     });
 
     $container->set('telemetryModel', function($container) {
