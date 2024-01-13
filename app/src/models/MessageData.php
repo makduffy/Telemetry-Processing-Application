@@ -3,19 +3,52 @@
 namespace Telemetry\Models;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\Entity
+ */
+
 class MessageData
 {
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
     private $id;
+    /**
+     * @ORM\Column (type="string")
+     */
     private $sourceMSISDN;
+    /**
+     * @ORM\Column (type="string")
+     */
     private $destinationMSISDN;
+    /**
+     * @ORM\Column (type="string")
+     */
     private $receivedTime;
+    /**
+     * @ORM\Column (type="string")
+     */
     private $bearer;
+    /**
+     * @ORM\Column (type="string")
+     */
     private $messageRef;
+    /**
+     * @ORM\Column (type="string")
+     */
     private $message;
 
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function setID(int $id): self
+    {
+        $this->id = $id;
+        return $id;
     }
 
     public function getSourceMSISDN(): string

@@ -27,7 +27,6 @@ class TelemetryController
             $validator = $container->get('validator');
 
             $telemetry_data = $telemetry_model->callTelemetryData($soap_wrapper, $settings);
-            var_dump($telemetry_data);
             $fan_data = $validator->filterArray($telemetry_data, 'fan');
             $heater_data = $validator->filterArray($telemetry_data, 'heater');
             $keypad_data = $validator->filterArray($telemetry_data, 'keypad');
@@ -35,7 +34,6 @@ class TelemetryController
             $switch2_data = $validator->filterArray($telemetry_data, 'switch2');
             $switch3_data = $validator->filterArray($telemetry_data, 'switch3');
             $switch4_data = $validator->filterArray($telemetry_data, 'switch4');
-            var_dump($fan_data);
             $fan_data_string = $validator->sanitizeData($fan_data);
             $heater_data_string = $validator->sanitizeData($heater_data);
             $switch1_data_string = $validator->sanitizeData($switch1_data);
@@ -43,7 +41,6 @@ class TelemetryController
             $switch3_data_string = $validator->sanitizeData($switch3_data);
             $switch4_data_string = $validator->sanitizeData($switch4_data);
             $keypad_data_string = $validator->sanitizeData($keypad_data);
-            var_dump($fan_data_string);
 
             if (
                 $fan_data_string !== null ||
