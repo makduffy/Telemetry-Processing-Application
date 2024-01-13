@@ -43,31 +43,30 @@ class TelemetryDetailModel
         $this->logger->info("Telemetry data call completed successfully.");
         return $result;
     }
-    public function storeTelemetryData($fanData, $heaterData, $switch1Data, $switch2Data, $switch3Data, $switch4Data, $keypadData): void
-    {
+    public function storeTelemetryData($fanData): void {
         $telemetryData = new TelemetryData();
 
         if ($fanData !== null) {
             $telemetryData->setFanData($fanData);
         }
-        if ($heaterData == null) {
-            $telemetryData->setHeaterData($heaterData);
-        }
-        if ($switch1Data == null) {
-            $telemetryData->setSwitch1Data($switch1Data);
-        }
-        if ($switch2Data == null) {
-            $telemetryData->setSwitch2Data($switch2Data);
-        }
-        if ($switch3Data == null) {
-            $telemetryData->setSwitch3Data($switch3Data);
-        }
-        if ($switch4Data == null) {
-            $telemetryData->setSwitch4Data($switch4Data);
-        }
-        if ($keypadData == null) {
-            $telemetryData->setKeypadData($keypadData);
-        }
+     //   if ($heaterData !== null) {
+      //      $telemetryData->setHeaterData($heaterData);
+      //  }
+      //  if ($switch1Data !== null) {
+      //      $telemetryData->setSwitch1Data($switch1Data);
+      //  }
+      //  if ($switch2Data !== null) {
+      //      $telemetryData->setSwitch2Data($switch2Data);
+      //  }
+     //   if ($switch3Data !== null) {
+     //       $telemetryData->setSwitch3Data($switch3Data);
+     //   }
+     //   if ($switch4Data !== null) {
+     //       $telemetryData->setSwitch4Data($switch4Data);
+     //   }
+     //   if ($keypadData !== null) {
+     //       $telemetryData->setKeypadData($keypadData);
+      //  }
 
         $this->entityManager->persist($telemetryData);
         $this->entityManager->flush();
