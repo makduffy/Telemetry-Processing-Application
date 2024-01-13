@@ -7,20 +7,15 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 
 class TelemetryDetailModel
-
 {
     private $logger;
     private $entityManager;
-
     public function __construct(LoggerInterface $logger, EntityManagerInterface $entityManager)
     {
         $this->logger = $logger;
         $this->entityManager = $entityManager;
     }
-
-    public function __destruct()
-    {
-    }
+    public function __destruct(){}
 
     public function callTelemetryData($soap_wrapper, $settings): array
     {
@@ -52,36 +47,58 @@ class TelemetryDetailModel
     {
         $telemetryData = new TelemetryData();
 
-        $telemetryData->setFanData($fanData);
-
-        if ($heaterData !== null) {
+        if ($fanData !== null) {
+            $telemetryData->setFanData($fanData);
+        }
+        if ($heaterData == null) {
             $telemetryData->setHeaterData($heaterData);
         }
-
-        if ($switch1Data !== null) {
+        if ($switch1Data == null) {
             $telemetryData->setSwitch1Data($switch1Data);
         }
-
-        if ($switch2Data !== null) {
+        if ($switch2Data == null) {
             $telemetryData->setSwitch2Data($switch2Data);
         }
-
-        if ($switch3Data !== null) {
+        if ($switch3Data == null) {
             $telemetryData->setSwitch3Data($switch3Data);
         }
-
-        if ($switch4Data !== null) {
+        if ($switch4Data == null) {
             $telemetryData->setSwitch4Data($switch4Data);
         }
-
-        if ($keypadData !== null) {
+        if ($keypadData == null) {
             $telemetryData->setKeypadData($keypadData);
         }
 
         $this->entityManager->persist($telemetryData);
         $this->entityManager->flush();
     }
+    public function getLatestTelemetryData()
+    {
+        try {
+            $query = $this->entityManager->createQueryBuilder()
+                ->select('data')
+                ->from(TelemetryData::class, 'data')
+                ->orderBy('data.created_at', 'DESC')
+                ->setMaxResults(1)
+                ->getQuery();
 
+            return $query->getOneOrNullResult();
 
+        } catch (\Exception $e) {
+            $this->logger->error("Error fetching latest telemetry data: " . $e->getMessage());
+            return null;
+        }
+    }
+
+    public function isDataNew($receivedTime): bool {
+
+        $latestData = $this->getLatestTelemetryData();
+        if (!$latestData) {
+            return true;
+        }
+        $latestTimestamp = $latestData->getCreatedAt();
+        return $receivedTime > $latestTimestamp;
+
+    }
 }
 

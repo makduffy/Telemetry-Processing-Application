@@ -31,6 +31,7 @@ class SoapWrapper   {
             $this->logger->error("Soap Client creation was unsuccessful: " . $exception->getMessage());
         }
 
+
         return $soap_client_handle;
     }
 

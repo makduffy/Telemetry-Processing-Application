@@ -3,53 +3,105 @@ declare (strict_types=1);
 namespace Telemetry\controllers;
 
 use Monolog\Logger;
+use Telemetry\Models\TelemetryDetailModel;
 
-class TelemetryController {
+class TelemetryController
+{
 
     private Logger $logger;
+    private TelemetryDetailModel $telemetryModel;
 
-    public function __construct(Logger $logger)
+    public function __construct(Logger $logger, TelemetryDetailModel $telemetryModel)
     {
+        $this->telemetryModel = $telemetryModel;
         $this->logger = $logger;
     }
+
     public function createHtmlOutput(object $container, object $request, object $response): void
     {
 
         $this->logger->info("Creating HTML Output...");
+
         try {
+
             $view = $container->get('view');
             $settings = $container->get('settings');
             $telemetry_view = $container->get('telemetryView');
             $telemetry_model = $container->get('telemetryModel');
-            $soap_wrapper = $container->get('soapWrapper');
-            $validator = $container->get('validator');
 
-            $telemetry_data = $telemetry_model->callTelemetryData($soap_wrapper, $settings);
+            $telemetry_data = $telemetry_model->getLatestTelemetryData();
 
-            $fan_data = $validator->filterArray($telemetry_data, 'fan');
-            $heater_data = $validator->filterArray($telemetry_data, 'heater');
-            $keypad_data = $validator->filterArray($telemetry_data, 'keypad');
-            $switch1_data = $validator->filterArray($telemetry_data, 'switch1');
-            $switch2_data = $validator->filterArray($telemetry_data, 'switch2');
-            $switch3_data = $validator->filterArray($telemetry_data, 'switch3');
-            $switch4_data = $validator->filterArray($telemetry_data, 'switch4');
-
-            $fan_data_string = $validator->sanitizeData($fan_data);
-            $heater_data_string = $validator->sanitizeData($heater_data);
-            $switch1_data_string = $validator->sanitizeData($switch1_data);
-            $switch2_data_string = $validator->sanitizeData($switch2_data);
-            $switch3_data_string = $validator->sanitizeData($switch3_data);
-            $switch4_data_string = $validator->sanitizeData($switch4_data);
-            $keypad_data_string = $validator->sanitizeData($keypad_data);
-
-            if ($fan_data_string !== null || $heater_data_string !== null || $switch1_data_string !== null || $switch2_data_string !== null || $switch3_data_string !== null || $switch4_data_string !== null) {
-                $telemetry_model->storeTelemetryData($fan_data_string, $heater_data_string, $switch1_data_string, $switch2_data_string, $switch3_data_string, $switch4_data_string,$keypad_data_string);
-            }
             $this->logger->info("Rendering the telemetry page.");
-            $telemetry_view->showTelemetryPage($view, $settings, $response, $fan_data_string, $heater_data_string, $switch1_data_string, $switch2_data_string, $switch3_data_string, $switch4_data_string,$keypad_data_string);
+            $telemetry_view->showTelemetryPage($view, $settings, $response, $telemetry_data);
             $this->logger->info("Successfully rendered the telemetry page.");
+
         } catch (\Exception $e) {
             $this->logger->error("Unsuccessfully created HTML Output");
         }
+    }
+
+    public function fetchAndStoreData($container)
+    {
+        try {
+            $soap_wrapper = $container->get('soapWrapper');
+            $settings = $container->get('settings');
+            $messages = $this->telemetryModel->callTelemetryData($soap_wrapper, $settings);
+
+            foreach ($messages as $xmlString) {
+                try {
+
+                    $processedData = $this->processMessage($xmlString);
+                    $receivedTime = $processedData['receivedTime'];
+
+                    $receivedTime = \DateTime::createFromFormat('d/m/Y H:i:s', $receivedTime);
+
+                    if ($this->telemetryModel->isDataNew($receivedTime)) {
+
+                        $this->telemetryModel->storeTelemetryData(
+                            $processedData['fanData'] ,
+                            $processedData['heaterData'],
+                            $processedData['switch1Data'],
+                            $processedData['switch2Data'],
+                            $processedData['switch3Data'],
+                            $processedData['switch4Data'],
+                            $processedData['keypadData']
+                        );
+                    }
+                } catch (\Exception $innerException) {
+                    $this->logger->error("Error processing individual message: " . $innerException->getMessage());
+                }
+            }
+        } catch (\Exception $e) {
+            $this->logger->error("Error in fetchAndStoreData: " . $e->getMessage());
+        }
+    }
+
+    private function processMessage($xmlString): array
+    {
+        $xml = new \SimpleXMLElement($xmlString);
+
+        $processedMessage = [
+            'sourceMsisdn' => (string)$xml->sourcemsisdn,
+            'destinationMsisdn' => (string)$xml->destinationmsisdn,
+            'receivedTime' => (string)$xml->receivedtime,
+            'bearer' => (string)$xml->bearer,
+            'messageRef' => (string)$xml->messageref,
+            'message' => (string)$xml->message,
+            'messageType' => $this->determineMessageType((string)$xml->message),
+        ];
+        return $processedMessage;
+    }
+
+    private function determineMessageType($messageContent): string
+    {
+        return match ($messageContent) {
+            'fan' => 'fanData',
+            'heater' => 'heaterData',
+            'keypad' => 'keypadData',
+            'switch1' => 'switch1Data',
+            default => 'unknownType'
+        };
+
+
     }
 }

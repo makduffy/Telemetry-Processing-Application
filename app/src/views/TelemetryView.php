@@ -14,11 +14,16 @@ class TelemetryView
     public function __destruct(){
     }
 
-    public function showTelemetryPage($view, $settings, $response, $fan_data, $heater_data, $switch1_data, $switch2_data, $switch3_data, $switch4_data, $keypad_data): void
+    public function showTelemetryPage($view, $settings, $response, $telemetry_data): void
     {
         $landing_page = $settings['landing_page'];
         $css_path = $settings['css_path'];
         $application_name = $settings['application_name'];
+
+        $fan_data = $telemetry_data->getFanData();
+        $heater_data = $telemetry_data->getHeaterData();
+        $switch1_data = $telemetry_data->getSwitch1Data();
+        $keypad_data = $telemetry_data->getKeypadData();
 
         $this->logger->info("Rendering Telemetry page");
         $view->render(
@@ -37,9 +42,6 @@ class TelemetryView
                 'fandata' => $fan_data,
                 'heaterdata' => $heater_data,
                 'switch1data' => $switch1_data,
-                'switch2data' => $switch2_data,
-                'switch3data' => $switch3_data,
-                'switch4data' => $switch4_data,
                 'keypaddata' => $keypad_data,
             ]
         );
