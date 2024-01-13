@@ -4,24 +4,31 @@
         <h1 class="cent">Telemetry Service</h1>
         <fieldset class="cent">
           <h2>{{ 'Display Telemetry data' }}</h2>
-            <h2>Keypad Data</h2>
-            <ul>
-                {{ keypaddata }}
-            </ul>
+            <table>
+                <thead>
+                <tr>
+                    <th>KeyPad Data</th>
+                    <th>Swtich1 Data</th>
+                    <th>Swtich2 Data</th>
+                    <th>Swtich3 Data</th>
+                    <th>Swtich4 Data</th>
+                    <th>Fan Data</th>
+                    <th>Heater Data </th>
+                </tr>
+                </thead>
+                <tbody>
 
-            <h2>Switch Data</h2>
-            <ul>
-                {{ switchdata }}
-            </ul>
-            <h2>Fan Data</h2>
-            <ul>
-                {{ fandata }}
-            </ul>
-
-            <h2>Heater Data</h2>
-            <ul>
-                    {{ heaterdata }}
-            </ul>
+                  <tr>
+                        <td>{{ keypaddata }} </td>
+                        <td>{{ switch1data }} </td>
+                        <td>{{ switch2data }} </td>
+                        <td>{{ switch3data }} </td>
+                        <td>{{ switch4data }}</td>
+                        <td>{{ fandata }} </td>
+                        <td>{{ heaterdata }}</td>
+                   </tr>
+                </tbody>
+            </table>
         </fieldset>
         <h1 class="cent"> META DATA</h1>
         <fieldset class="cent">
