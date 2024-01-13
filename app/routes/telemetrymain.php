@@ -30,7 +30,7 @@ $app->get('/telemetrymain', function (Request $request, Response $response) use 
     try {
         // Invokes the method to create HTML output for the telemetry main page.
         $telemetry_controller->createHtmlOutput($container, $request, $response);
-        // Logs a successful access to the telemetry main route.
+        // Logs successful access to the telemetry main route.
         $logger->info('Telemetry main route accessed successfully');
     } catch (\Exception $e) {
         // Logs an error if an exception is caught during processing.
