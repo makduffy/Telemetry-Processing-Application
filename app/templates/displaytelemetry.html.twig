@@ -1,55 +1,77 @@
 {% extends 'banner.html.twig' %}
 {% block content %}
+
+<style>
+    .cent {
+        text-align: center;
+        margin: auto;
+    }
+
+    table.cent {
+        margin: auto;
+        text-align: center;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    fieldset {
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+
+    table.cent th, table.cent td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+
+</style>
+
     <div class="page-content-div">
         <h1 class="cent">Telemetry Service</h1>
         <fieldset class="cent">
-          <h2>{{ 'Display Telemetry data' }}</h2>
-            <h2>Keypad Data</h2>
-            <ul>
-                {{ keypaddata }}
-            </ul>
-
-            <h2>Switch Data</h2>
-            <ul>
-                {{ switchdata }}
-            </ul>
-            <h2>Fan Data</h2>
-            <ul>
-                {{ fandata }}
-            </ul>
-
-            <h2>Heater Data</h2>
-            <ul>
-                    {{ heaterdata }}
-            </ul>
+            <h2>{{ 'Display Telemetry data' }}</h2>
+            <table class="cent">
+                <thead>
+                <tr>
+                    <th>KeyPad Data</th>
+                    <th>Swtich1 Data</th>
+                    <th>Swtich2 Data</th>
+                    <th>Swtich3 Data</th>
+                    <th>Swtich4 Data</th>
+                    <th>Fan Data</th>
+                    <th>Heater Data</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ keypaddata }}</td>
+                    <td>{{ switch1data }}</td>
+                    <td>{{ switch2data }}</td>
+                    <td>{{ switch3data }}</td>
+                    <td>{{ switch4data }}</td>
+                    <td>{{ fandata }}</td>
+                    <td>{{ heaterdata }}</td>
+                </tr>
+                </tbody>
+            </table>
         </fieldset>
         <h1 class="cent"> META DATA</h1>
         <fieldset class="cent">
 
             <h2>Created At</h2>
-            <ul>
-
-            </ul>
+            <p></p>
             <h2>MSISDN</h2>
-            <ul>
-
-            </ul>
-
+            <p></p>
             <h2>Target MSISDN</h2>
-            <ul>
-
-            </ul>
-
+            <p></p>
             <h2>Date</h2>
-            <ul>
-
-            </ul>
-
+            <p></p>
             <h2>Message</h2>
-            <ul>
-
-            </ul>
-
+            <p></p>
         </fieldset>
     </div>
 {% endblock %}
