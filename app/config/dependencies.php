@@ -26,13 +26,10 @@ use Telemetry\Support\SoapWrapper;
 use Telemetry\Support\Validator;
 use Telemetry\Views\HomePageView;
 use Telemetry\Views\PostMessageView;
-use Telemetry\Views\SendMessageView;
-use Telemetry\Views\TelemetryView;
-use Doctrine\DBAL\DriverManager;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\ORMSetup;
-use Doctrine\ORM\Tools\Setup;
-use DoctrineSessions\Support\DoctrineSqlQueries;
+use Telemetry\views\HomePageView;
+use Telemetry\views\SendMessageView;
+use Telemetry\views\TelemetryView;
+
 
 
 /**
@@ -114,8 +111,12 @@ return function (Container $container, App $app) {
         return new EntityManager($dbConnection, $config);
     });
 
-    $container->set('registerView', function(){
-        return new \Telemetry\views\RegisterView();
+    $container->set('RegisterUserView', function(){
+        return new \views\RegisterUserView();
+    });
+
+    $container->set('RegisterUserController', function(){
+        return new \Telemetry\controllers\RegisterUserController();
     });
 
     $container->set('sendMessageView', function(){

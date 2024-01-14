@@ -69,24 +69,35 @@
                 </tbody>
             </table>
         </fieldset>
-        <h1 class="cent"> META DATA</h1>
+        <br> <br>
         <fieldset class="cent">
-
-            <h2>Created At</h2>
-            <p></p>
-            <h2>MSISDN</h2>
-            <p></p>
-            <h2>Target MSISDN</h2>
-            <p></p>
-            <h2>Date</h2>
-            <p></p>
-            <h2>Message</h2>
-            <p></p>
+            <h1 class="cent"> META DATA</h1>
+            <table class="cent">
+                <thead>
+                <tr>
+                    <th>Created At</th>
+                    <th>MSISDN</th>
+                    <th>Target MSISDN</th>
+                    <th>Message</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ createdat }}</td>
+                    <td>{{ msisdn }}</td>
+                    <td>{{ targetmsisdn }}</td>
+                    <td>{{ message }}</td>
+                </tr>
+                </tbody>
+            </table>
         </fieldset>
-        <h1 class="cent"> Send Data</h1>
+        <br> <br>
         <fieldset class="cent">
-            <a href="">
-                <button>Send Data</button>
+            <h1 class="cent"> Send Message</h1>
+            <br> <br>
+            <br> <br>
+            <a href="/sendmessage/">
+                <button>Send Message</button>
             </a>
         </fieldset>
     </div>

@@ -10,3 +10,5 @@
 require 'homepage.php';
 require 'telemetrymain.php';
 require 'registeruser.php';
+require 'sendmessage.php';
+require 'postmessage.php';
