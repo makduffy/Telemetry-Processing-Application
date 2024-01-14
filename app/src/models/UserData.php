@@ -25,10 +25,10 @@ class UserData
     /**
      * @ORM\Column(type="datetime")
      */
-    private \DateTime $createdAt;
+    private \DateTime $created_At;
 
     public function __construct(){
-        $this->createdAt = new \DateTime();
+        $this->created_At = new \DateTime();
     }
 
 
@@ -64,13 +64,13 @@ class UserData
         $this->password = $password;
         return $this;
     }
-    public function setCreatedTime(\DateTime $createdAt): self{
-        $this->createdAt = $createdAt;
+    public function setCreatedTime(\DateTime $created_At): self{
+        $this->created_At = $created_At;
         return $this;
     }
 
     public function getCreatedTime(): \DateTime {
-        return $this->createdAt;
+        return $this->created_At;
     }
 }
 

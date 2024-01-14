@@ -29,7 +29,21 @@ class HomePageController
         $view = $container->get('view');
 
         $settings = $container->get('settings');
-
         $homepage_view->createHomePageView($view, $settings, $response);
+    }
+
+    public function validateUser(object $container, object $request, object $response)
+    {
+        $user_model = $container->get('userModel');
+        $data = $request->getParsedBody();
+
+        $username = $data['username'];
+        $password = $data['password'];
+        $password = $user_model->hashPassword($password);
+        if ($this->userService->authenticate($username, $password)) {
+            return new Response('Authentication successful');
+        }
+
+        return new Response('Authentication failed');
     }
 }

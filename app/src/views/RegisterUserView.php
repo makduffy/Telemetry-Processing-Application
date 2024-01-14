@@ -20,12 +20,9 @@ class RegisterUserView
     public function createRegisterUserView($view, array $settings, Response $response): void
     {
 
-        // Retrieve settings for rendering
-
         $css_path = $settings['css_path'];
         $application_name = $settings['application_name'];
 
-        // Render the register user page using the specified template
         $view->render(
             $response,
             'registeruser.html.twig',
@@ -33,7 +30,7 @@ class RegisterUserView
                 'css_path' => $css_path,
                 'application_name' => $application_name,
                 'initial_input_box_value' => null,
-                'action' => '/registeruser', // Adjust the URL based on your route setup
+                'action' => '',
             ]
         );
     }
