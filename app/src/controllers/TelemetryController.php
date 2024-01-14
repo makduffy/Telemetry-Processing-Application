@@ -25,6 +25,7 @@ class TelemetryController
         $settings = $container->get('settings');
         $telemetry_view = $container->get('telemetryView');
         $telemetry_model = $container->get('telemetryModel');
+        $messages_model = $container->get('messageModel');
         $logger = $container->get('logger');
         $messages_model = $container->get('messageModel');
 
@@ -48,7 +49,7 @@ class TelemetryController
         $soap_wrapper = $container->get('soapWrapper');
         $settings = $container->get('settings');
         $telemetry_model = $container->get('telemetryModel');
-        $messages_model = $container->get('messageModel');
+        $message_model = $container->get('messageModel');
         $logger = $container->get('logger');
 
         $logger->info("Retrieving the message");
@@ -61,6 +62,9 @@ class TelemetryController
                 try {
 
                     $processedData = $telemetry_model->processMessage($xmlString);
+                    $receivedTime = $processedData['receivedTime'];
+                    $receivedTime = \DateTime::createFromFormat('d/m/Y H:i:s', $receivedTime);
+=======
                     $processedMetaData = $messages_model->processMessageData($xmlString);
                     $receivedTimeTelemetry = $processedData['receivedTime'];
                     $receivedTimeMetaData = $processedMetaData['receivedTime'];
@@ -87,6 +91,11 @@ class TelemetryController
                         $bearer = $processedMetaData['bearer'] ?? null;
                         $messageRef = $processedMetaData['messageRef'] ?? null;
                         $message = $processedMetaData['message'] ?? null;
+                       
+                        $message_model->storeMessageData($sourceMSISDN, $destinationMsisdn, $bearer, $messageRef, $message);
+                        $telemetry_model->storeTelemetryData($fanData, $heaterData, $switch1Data, $switch2Data, $switch3Data, $switch4Data, $keypadData);
+
+
 
                         $messages_model->storeMessageData($sourceMSISDN, $destinationMsisdn, $bearer, $messageRef, $message);
                     }

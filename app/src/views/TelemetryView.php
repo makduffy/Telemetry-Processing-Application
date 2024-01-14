@@ -34,6 +34,7 @@ class TelemetryView
         $keypad_data = $telemetry_data->getKeypadData();
 
         $createdAt = $message_data->getReceivedTime();
+        $formattedDate = $createdAt->format('Y-m-d H:i:s');
         $msisdn = $message_data->getSourceMSISDN();
         $targetmsisdn = $message_data->getDestinationMSISDN();
         $message = $message_data->getMessage();
@@ -59,7 +60,7 @@ class TelemetryView
                 'switch3data' => $switch3_data,
                 'switch4data' => $switch4_data,
                 'keypaddata' => $keypad_data,
-                'createdat' => $createdAt,
+                'createdat' => $formattedDate,
                 'msisdn' => $msisdn,
                 'targetmsisdn' => $targetmsisdn,
                 'message' => $message
