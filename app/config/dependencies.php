@@ -1,5 +1,11 @@
 <?php
 
+/***
+ *  date 16/11/23
+ *  Mak Duffy, Flavio Moreira and Rory Markham
+ *  Sets up the dependencies
+ * */
+
 declare (strict_types=1);
 
 use DI\Container;
@@ -22,6 +28,21 @@ use Telemetry\Views\HomePageView;
 use Telemetry\Views\PostMessageView;
 use Telemetry\Views\SendMessageView;
 use Telemetry\Views\TelemetryView;
+use Doctrine\DBAL\DriverManager;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\ORMSetup;
+use Doctrine\ORM\Tools\Setup;
+use DoctrineSessions\Support\DoctrineSqlQueries;
+
+
+/**
+ * Configures services and settings for the Slim application
+ *
+ * @param Container $container The dependency injection container
+ * @param App $app The slim application instance
+ *
+ */
+
 
 return function (Container $container, App $app) {
     $settings = $app->getContainer()->get('settings');

@@ -117,7 +117,7 @@ class Validator
 
 
 
-
+/**
     public function sanitizeData($telemetry_data)
     {
         if (is_array($telemetry_data)) {
@@ -142,6 +142,7 @@ class Validator
             return '';
         }
     }
+ * */
 
 }
 

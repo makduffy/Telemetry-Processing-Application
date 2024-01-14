@@ -4,7 +4,9 @@ namespace Telemetry\controllers;
 
 class TelemetryController
 {
+
     public function createHtmlOutput(object $container, object $request, object $response): void
+
     {
         $view = $container->get('view');
         $settings = $container->get('settings');

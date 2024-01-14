@@ -1,6 +1,15 @@
 <?php
 global $app;
 
+/**
+ * date 12/01/14
+ *
+ * created by Mak Duffy
+ *
+ * defines routes to store data
+ *
+ */
+
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 

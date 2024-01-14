@@ -3,6 +3,20 @@ declare (strict_types=1);
 
 use DI\Container;
 
+
+/**
+ * date 16/11/23
+ * created by Mak Duffy and Flavio Moreira
+ *
+ *
+ * Configures services and settings for the Slim application.
+ *
+ * @param Container $container The dependency injection container.
+ * @param string $app_dir The base directory path of the application.
+ *
+ * @return array The configured settings array.
+ */
+
 return function (Container $container, string $app_dir)
 {
     $app_url = dirname($_SERVER['SCRIPT_NAME']);
