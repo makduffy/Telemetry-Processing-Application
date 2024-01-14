@@ -2,6 +2,13 @@
 
 namespace Telemetry\Views;
 
+/**
+ * Class PostMessageView
+ *
+ * Represents the view for displaying the post message page.
+ *
+ */
+
 class PostMessageView
 {
     public function showPostMessagePage($view, $settings, $response): void

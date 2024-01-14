@@ -5,6 +5,13 @@ namespace Telemetry\Support;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
+/**
+ * Class SoapWrapper
+ *
+ * A wrapper class for handling SOAP client creation and performing SOAP calls.
+ *
+ */
+
 class SoapWrapper   {
     private Logger $logger;
 
