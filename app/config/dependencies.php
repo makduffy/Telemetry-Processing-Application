@@ -23,6 +23,7 @@ use Telemetry\controllers\TelemetryController;
 use Telemetry\Models\PostMessageModel;
 use Telemetry\models\TelemetryDetailModel;
 use Telemetry\models\MessageDetailModel;
+use Telemetry\models\UserDetailModel;
 use Telemetry\Support\DatabaseWrapper;
 use Telemetry\Support\SoapWrapper;
 use Telemetry\Support\Validator;
@@ -147,6 +148,12 @@ return function (Container $container, App $app) {
         $logger = $container->get('logger');
         $entityManager = $container->get('entityManager');
         return new PostMessageModel($logger, $entityManager);
+    });
+
+    $container->set('userModel', function($container) {
+        $logger = $container->get('logger');
+        $entityManager = $container->get('entityManager');
+        return new UserDetailModel($logger, $entityManager);
     });
 
 

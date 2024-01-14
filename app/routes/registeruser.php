@@ -16,6 +16,13 @@ use Psr\Http\Message\ResponseInterface as Response;
 $app->get('/registeruser', function (Request $request, Response $response) use ($app) {
     $container = $app->getContainer();
     $register_user_controller = $container->get('registerUserController');
-    $register_user_controller->createHtmlOutput($container, $request, $response);
+    $register_user_controller->showRegisterUserView($container, $request, $response);
+    return $response;
+});
+
+$app->post('/registeruser', function (Request $request, Response $response) use ($app) {
+    $container = $app->getContainer();
+    $register_user_controller = $container->get('registerUserController');
+    $register_user_controller->processRegistration($container, $request, $response);
     return $response;
 });
