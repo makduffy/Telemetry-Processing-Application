@@ -24,7 +24,7 @@ class MessageData
      */
     private $destinationMSISDN;
     /**
-     * @ORM\Column (type="string")
+     * @ORM\Column (type="datetime")
      */
     private $receivedTime;
     /**
@@ -95,12 +95,12 @@ class MessageData
         return $this;
     }
 
-    public function getMessageRef(): int
+    public function getMessageRef(): string
     {
         return $this->messageRef;
     }
 
-    public function setMessageRef(int $messageRef): self
+    public function setMessageRef(string $messageRef): self
     {
         $this->messageRef = $messageRef;
         return $this;
