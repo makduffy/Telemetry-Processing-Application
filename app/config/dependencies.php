@@ -18,6 +18,7 @@ use Slim\App;
 use Slim\Views\Twig;
 use Telemetry\controllers\HomePageController;
 use Telemetry\Controllers\postMessageController;
+use Telemetry\controllers\RegisterUserController;
 use Telemetry\controllers\TelemetryController;
 use Telemetry\Models\PostMessageModel;
 use Telemetry\models\TelemetryDetailModel;
@@ -26,7 +27,7 @@ use Telemetry\Support\SoapWrapper;
 use Telemetry\Support\Validator;
 use Telemetry\Views\HomePageView;
 use Telemetry\Views\PostMessageView;
-use Telemetry\views\HomePageView;
+use Telemetry\views\RegisterUserView;
 use Telemetry\views\SendMessageView;
 use Telemetry\views\TelemetryView;
 
@@ -111,12 +112,12 @@ return function (Container $container, App $app) {
         return new EntityManager($dbConnection, $config);
     });
 
-    $container->set('RegisterUserView', function(){
-        return new \views\RegisterUserView();
+    $container->set('registerUserView', function(){
+        return new RegisterUserView();
     });
 
-    $container->set('RegisterUserController', function(){
-        return new \Telemetry\controllers\RegisterUserController();
+    $container->set('registerUserController', function(){
+        return new RegisterUserController();
     });
 
     $container->set('sendMessageView', function(){

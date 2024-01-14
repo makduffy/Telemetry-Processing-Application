@@ -27,7 +27,7 @@ class RegisterUserController
          *
          * @var RegisterUserView $register_user_view
          */
-        $register_user_view = $container->get('RegisterUserView');
+        $register_user_view = $container->get('registerUserView');
 
         $view = $container->get('view');
 
