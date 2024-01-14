@@ -1,5 +1,11 @@
 <?php
 
+/***
+ *  date 16/11/23
+ *  Mak Duffy, Flavio Moreira and Rory Markham
+ *  Sets up the dependencies
+ * */
+
 declare (strict_types=1);
 
 use DI\Container;
@@ -20,6 +26,8 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMSetup;
 use Doctrine\ORM\Tools\Setup;
 use DoctrineSessions\Support\DoctrineSqlQueries;
+
+
 
 /**
  * Configures services and settings for the Slim application
