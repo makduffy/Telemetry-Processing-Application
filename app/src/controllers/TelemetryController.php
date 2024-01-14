@@ -4,9 +4,6 @@ namespace Telemetry\controllers;
 
 class TelemetryController
 {
-
-
-
     public function createHtmlOutput(object $container, object $request, object $response): void
     {
         $view = $container->get('view');
@@ -30,19 +27,20 @@ class TelemetryController
         }
     }
 
-    public function fetchAndStoreData(object $container)
+    public function fetchAndStoreData(object $container): void
     {
-
         $soap_wrapper = $container->get('soapWrapper');
         $settings = $container->get('settings');
         $telemetry_model = $container->get('telemetryModel');
         $logger = $container->get('logger');
 
+        $logger->info("Retrieving the message");
         try {
 
             $messages = $telemetry_model->callTelemetryData($soap_wrapper, $settings);
 
             foreach ($messages as $xmlString) {
+                $logger->info("Storing the data");
                 try {
 
                     $processedData = $telemetry_model->processMessage($xmlString);
@@ -62,11 +60,11 @@ class TelemetryController
                     }
 
                 } catch (\Exception $innerException) {
-                    $logger->error("Error processing individual message: " . $innerException->getMessage());
+                    $logger->error("Could not store the data " . $innerException->getMessage());
                 }
             }
         } catch (\Exception $e) {
-            $logger->error("Error in fetchAndStoreData: " . $e->getMessage());
+            $logger->error("Could not retrieve the data " . $e->getMessage());
         }
     }
 }

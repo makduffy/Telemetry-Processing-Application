@@ -85,7 +85,7 @@ class TelemetryDetailModel
             return $query->getOneOrNullResult();
 
         } catch (\Exception $e) {
-            $this->logger->error("Error fetching latest telemetry data: " . $e->getMessage());
+            $this->logger->error("Error fetching latest telemetry data " . $e->getMessage());
             return null;
         }
     }

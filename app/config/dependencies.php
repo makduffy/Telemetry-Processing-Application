@@ -5,21 +5,23 @@ declare (strict_types=1);
 use DI\Container;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\ORMSetup;
 use Doctrine\ORM\Tools\Setup;
-use DoctrineSessions\Support\DoctrineSqlQueries;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Slim\App;
 use Slim\Views\Twig;
 use Telemetry\controllers\HomePageController;
+use Telemetry\Controllers\postMessageController;
 use Telemetry\controllers\TelemetryController;
+use Telemetry\Models\PostMessageModel;
 use Telemetry\models\TelemetryDetailModel;
 use Telemetry\Support\DatabaseWrapper;
 use Telemetry\Support\SoapWrapper;
 use Telemetry\Support\Validator;
-use Telemetry\Views\TelemetryView;
 use Telemetry\Views\HomePageView;
+use Telemetry\Views\PostMessageView;
+use Telemetry\Views\SendMessageView;
+use Telemetry\Views\TelemetryView;
 
 return function (Container $container, App $app) {
     $settings = $app->getContainer()->get('settings');
@@ -94,4 +96,22 @@ return function (Container $container, App $app) {
     $container->set('registerView', function(){
         return new \Telemetry\views\RegisterView();
     });
+
+    $container->set('sendMessageView', function(){
+        return new sendMessageView();
+    });
+
+    $container->set('postMessageView', function(){
+        return new postMessageView();
+    });
+
+    $container->set('postMessageController', function(){
+        return new PostMessageController();
+    });
+
+    $container->set('postMessageModel', function(){
+        return new PostMessageModel();
+    });
+
+
 };

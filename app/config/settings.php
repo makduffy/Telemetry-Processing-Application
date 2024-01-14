@@ -17,7 +17,7 @@ return function (Container $container, string $app_dir)
             'application_name' => 'telemetry',
             'css_path' => $app_url . '/css/standard.css',
 
-            'log_file_path' => '/p3t/phpappfolder/logs/',
+            'log_file_path' => '/p3t/phpappfolder/telemetry',
             'displayErrorDetails' => true,
             'logErrorDetails' => true,
             'logErrors' => true,
@@ -57,25 +57,9 @@ return function (Container $container, string $app_dir)
                 'password' => 'DoorDash!!12',
                 'count' => '25',
                 'deviceMSISDN' => '+447452835992',
-                'countryCode' => '+44'
+                'countryCode' => '+44',
+                'M2MNumber' => '+447817814149'
             ]
-
-            /*'pdo_settings' => [
-                'rdbms' => 'mysql',
-                'host' => 'mariadb.dmu.ac.uk',
-                'db_name' => 'p2599966db',
-                'port' => '3306',
-                'user_name' => 'p2599966_web',
-                'user_password' => 'scuLk=70',
-                'charset' => 'utf8',
-                'collation' => 'utf8_unicode_ci',
-                'options' => [
-                    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                    PDO::ATTR_EMULATE_PREPARES   => true
-                ],
-            ],
-             */
         ];
     });
 };
