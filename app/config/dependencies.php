@@ -1,26 +1,37 @@
 <?php
 
+/***
+ *  date 16/11/23
+ *  Mak Duffy, Flavio Moreira and Rory Markham
+ *  Sets up the dependencies
+ * */
+
 declare (strict_types=1);
 
 use DI\Container;
+use Doctrine\DBAL\DriverManager;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Tools\Setup;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Slim\App;
 use Slim\Views\Twig;
 use Telemetry\controllers\HomePageController;
+use Telemetry\Controllers\postMessageController;
 use Telemetry\controllers\TelemetryController;
+use Telemetry\Models\PostMessageModel;
 use Telemetry\models\TelemetryDetailModel;
 use Telemetry\models\MessageDetailModel;
 use Telemetry\Support\DatabaseWrapper;
 use Telemetry\Support\SoapWrapper;
 use Telemetry\Support\Validator;
-use Telemetry\Views\TelemetryView;
 use Telemetry\Views\HomePageView;
-use Doctrine\DBAL\DriverManager;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\ORMSetup;
-use Doctrine\ORM\Tools\Setup;
-use DoctrineSessions\Support\DoctrineSqlQueries;
+use Telemetry\Views\PostMessageView;
+use Telemetry\views\HomePageView;
+use Telemetry\views\SendMessageView;
+use Telemetry\views\TelemetryView;
+
+
 
 /**
  * Configures services and settings for the Slim application
@@ -30,16 +41,11 @@ use DoctrineSessions\Support\DoctrineSqlQueries;
  *
  */
 
+
 return function (Container $container, App $app) {
     $settings = $app->getContainer()->get('settings');
     $template_path = $settings['view']['template_path'];
     $cache_path = $settings['view']['cache_path'];
-
-    /**
-     * Sets up the Twig template engine for rendering views
-     *
-     * @return Twig
-     */
 
     $container->set('view', function () use ($template_path, $cache_path) {
         {
@@ -48,62 +54,22 @@ return function (Container $container, App $app) {
     }
     );
 
-    /**
-     * Creates an instance of HomePageController
-     *
-     * @return HomePageController
-     *
-     */
-
     $container->set('homePageController', function () {
         return new HomePageController();
     });
 
-    /**
-     * Creates an instance of HomePageView
-     *
-     * @return HomePageView
-     *
-     */
-
     $container->set('homePageView', function () {
         return new HomePageView();
     });
-
-    /**
-     * Creates an instance of TelemetryView
-     *
-     * @return TelemetryView
-     *
-     */
 
     $container->set('telemetryView', function ($container) {
         $logger = $container->get('logger');
         return new TelemetryView($logger);
     });
 
-
-
-    /**
-     * Creates an instance of TelemetryController
-     *
-     * @return TelemetryController
-     *
-     */
-
-    $container->set('telemetryController', function($container)
-    {
-        $logger = $container->get('logger');
-        return new TelemetryController($logger);
-
+    $container->set('telemetryController', function($container) {
+        return new TelemetryController();
     });
-
-    /**
-     * Creates an instance of TelemetryDetailModel
-     *
-     * @return TelemetryDetailModel
-     *
-     */
 
     $container->set('telemetryModel', function($container) {
         $logger = $container->get('logger');
@@ -136,32 +102,13 @@ return function (Container $container, App $app) {
         return new SoapWrapper($logger);
     });
 
-    /**
-     * Creates an instance of DatabaseWrapper
-     *
-     * @return DatabaseWrapper
-     *
-     */
-
     $container->set('databaseWrapper', function(){
         return new DatabaseWrapper();
     });
 
-    /**
-     * Creates an instance of Validator
-     *
-     * @return Validator
-     */
-
     $container->set('validator', function(){
         return new Validator();
     });
-
-    /**
-     * Creates a Monolog logger instance
-     *
-     * @return $logger
-     */
 
     $container->set('logger', function () {
         $logger = new Logger('monologger');
@@ -185,18 +132,29 @@ return function (Container $container, App $app) {
         return new EntityManager($dbConnection, $config);
     });
 
-    /**
-     * Creates an instance of RegisterView.
-     *
-     * @return RegisterView
-     */
-
     $container->set('RegisterUserView', function(){
-        return new Telemetry\Views\RegisterUserView();
+        return new \views\RegisterUserView();
     });
 
     $container->set('RegisterUserController', function(){
-        return new Telemetry\controllers\RegisterUserController();
+        return new \Telemetry\controllers\RegisterUserController();
     });
+
+    $container->set('sendMessageView', function(){
+        return new sendMessageView();
+    });
+
+    $container->set('postMessageView', function(){
+        return new postMessageView();
+    });
+
+    $container->set('postMessageController', function(){
+        return new PostMessageController();
+    });
+
+    $container->set('postMessageModel', function(){
+        return new PostMessageModel();
+    });
+
 
 };

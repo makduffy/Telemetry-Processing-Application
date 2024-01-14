@@ -47,41 +47,58 @@
             <table class="cent">
                 <thead>
                 <tr>
-                    <th>KeyPad Data</th>
+                    <th>Fan Data</th>
+                    <th>Heater Data</th>
                     <th>Swtich1 Data</th>
                     <th>Swtich2 Data</th>
                     <th>Swtich3 Data</th>
                     <th>Swtich4 Data</th>
-                    <th>Fan Data</th>
-                    <th>Heater Data</th>
+                    <th>KeyPad Data</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>{{ keypaddata }}</td>
+                    <td>{{ fandata }}</td>
+                    <td>{{ heaterdata }}</td>
                     <td>{{ switch1data }}</td>
                     <td>{{ switch2data }}</td>
                     <td>{{ switch3data }}</td>
                     <td>{{ switch4data }}</td>
-                    <td>{{ fandata }}</td>
-                    <td>{{ heaterdata }}</td>
+                    <td>{{ keypaddata }}</td>
                 </tr>
                 </tbody>
             </table>
         </fieldset>
-        <h1 class="cent"> META DATA</h1>
+        <br> <br>
         <fieldset class="cent">
-
-            <h2>Created At</h2>
-            <p></p>
-            <h2>MSISDN</h2>
-            <p></p>
-            <h2>Target MSISDN</h2>
-            <p></p>
-            <h2>Date</h2>
-            <p></p>
-            <h2>Message</h2>
-            <p></p>
+            <h1 class="cent"> META DATA</h1>
+            <table class="cent">
+                <thead>
+                <tr>
+                    <th>Created At</th>
+                    <th>MSISDN</th>
+                    <th>Target MSISDN</th>
+                    <th>Message</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ createdat }}</td>
+                    <td>{{ msisdn }}</td>
+                    <td>{{ targetmsisdn }}</td>
+                    <td>{{ message }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+        <br> <br>
+        <fieldset class="cent">
+            <h1 class="cent"> Send Message</h1>
+            <br> <br>
+            <br> <br>
+            <a href="/sendmessage/">
+                <button>Send Message</button>
+            </a>
         </fieldset>
     </div>
 {% endblock %}
