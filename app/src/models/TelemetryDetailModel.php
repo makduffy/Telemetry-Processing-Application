@@ -92,7 +92,7 @@ class TelemetryDetailModel
         }
     }
 
-    public function isDataNew($received_time): bool {
+    public function isTelemetryDataNew($received_time): bool {
 
         $latest_data = $this->getLatestTelemetryData();
         if (!$latest_data) {

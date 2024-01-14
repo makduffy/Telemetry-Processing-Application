@@ -1,0 +1,30 @@
+{% extends 'banner.html.twig' %}
+{% block content %}
+
+    <style>
+        .cent {
+            text-align: center;
+            margin: auto;
+        }
+
+
+        fieldset {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+    </style>
+
+    <div id="page-content-div">
+        <h1 class="cent">send data</h1>
+        <fieldset class="cent">
+                <p> Message has successfully been send</p>
+            <a href="displaytelemetry">
+                <button>Return</button>
+            </a>
+        </fieldset>
+    </div>
+{% endblock %}

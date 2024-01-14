@@ -18,6 +18,7 @@ use Slim\App;
 use Slim\Views\Twig;
 use Telemetry\controllers\HomePageController;
 use Telemetry\Controllers\postMessageController;
+use Telemetry\controllers\RegisterUserController;
 use Telemetry\controllers\TelemetryController;
 use Telemetry\Models\PostMessageModel;
 use Telemetry\models\TelemetryDetailModel;
@@ -27,12 +28,19 @@ use Telemetry\Support\SoapWrapper;
 use Telemetry\Support\Validator;
 use Telemetry\Views\HomePageView;
 use Telemetry\Views\PostMessageView;
+use Telemetry\views\RegisterUserView;
 use Telemetry\views\SendMessageView;
 use Telemetry\views\TelemetryView;
 
 
 
 /**
+ * date 16/11/23
+ *
+ * created by Mak Duffy, Flavio Moreira and Rory Markham
+ *
+ * Configures error middleware for the Slim application
+ *
  * Configures services and settings for the Slim application
  *
  * @param Container $container The dependency injection container
@@ -76,12 +84,6 @@ return function (Container $container, App $app) {
         return new TelemetryDetailModel($logger, $entityManager);
     });
 
-    /**
-     * Creates an instance of MessageDetailModel
-     *
-     * @return MessageDetailModel
-     *
-     */
 
     $container->set('messageModel', function($container) {
         $logger = $container->get('logger');
@@ -89,20 +91,10 @@ return function (Container $container, App $app) {
         return new MessageDetailModel($logger, $entityManager);
     });
 
-    /**
-     * Creates an instance of SoapWrapper
-     *
-     * @return SoapWrapper
-     *
-     */
 
     $container->set('soapWrapper', function ($container) {
         $logger = $container->get('logger');
         return new SoapWrapper($logger);
-    });
-
-    $container->set('databaseWrapper', function(){
-        return new DatabaseWrapper();
     });
 
     $container->set('validator', function(){
@@ -131,28 +123,30 @@ return function (Container $container, App $app) {
         return new EntityManager($dbConnection, $config);
     });
 
-    $container->set('RegisterUserView', function(){
-        return new \views\RegisterUserView();
+    $container->set('registerUserView', function(){
+        return new RegisterUserView();
     });
 
-    $container->set('RegisterUserController', function(){
-        return new \Telemetry\controllers\RegisterUserController();
+    $container->set('registerUserController', function(){
+        return new RegisterUserController();
     });
 
     $container->set('sendMessageView', function(){
-        return new sendMessageView();
+        return new SendMessageView();
     });
 
     $container->set('postMessageView', function(){
-        return new postMessageView();
+        return new PostMessageView();
     });
 
     $container->set('postMessageController', function(){
         return new PostMessageController();
     });
 
-    $container->set('postMessageModel', function(){
-        return new PostMessageModel();
+    $container->set('postMessageModel', function($container){
+        $logger = $container->get('logger');
+        $entityManager = $container->get('entityManager');
+        return new PostMessageModel($logger, $entityManager);
     });
 
 

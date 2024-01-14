@@ -29,9 +29,9 @@ class TelemetryData
     /** @ORM\Column (type="string") */
     private ?string $keypad_data;
     /** @ORM\Column (type="datetime") */
-    private \DateTime  $created_at;
+    private ?\DateTime  $created_at;
     /** @ORM\Column (type="datetime") */
-    private \DateTime $updated_at;
+    private ?\DateTime $updated_at;
 
 
     public function __construct() {
@@ -41,18 +41,15 @@ class TelemetryData
     {
         return $this->id;
     }
-
     public function setId(int $id): self
     {
         $this->id = $id;
         return $this;
     }
-
     public function getFanData(): ?string
     {
         return $this->fan_data;
     }
-
     public function setFanData(?string $fan_data): self
     {
         $this->fan_data = $fan_data;

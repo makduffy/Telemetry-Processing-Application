@@ -4,6 +4,17 @@ namespace Telemetry\controllers;
 
 use Telemetry\Models\MessageDetailModel;
 
+/***
+ * Created by Mak Duffy
+ *
+ *
+ *  Class Telemetry Controller
+ *
+ * Controller for handling requests related to telemetry data
+ */
+
+
+
 class TelemetryController
 {
 
@@ -16,6 +27,7 @@ class TelemetryController
         $telemetry_model = $container->get('telemetryModel');
         $messages_model = $container->get('messageModel');
         $logger = $container->get('logger');
+        $messages_model = $container->get('messageModel');
 
         $logger->info("Creating HTML Output...");
 
@@ -23,7 +35,6 @@ class TelemetryController
 
             $telemetry_data = $telemetry_model->getLatestTelemetryData();
             $message_data = $messages_model->getLatestMessageData();
-
             $logger->info("Rendering the telemetry page.");
             $telemetry_view->showTelemetryPage($view, $settings, $response, $telemetry_data, $message_data);
             $logger->info("Successfully rendered the telemetry page.");
@@ -53,8 +64,13 @@ class TelemetryController
                     $processedData = $telemetry_model->processMessage($xmlString);
                     $receivedTime = $processedData['receivedTime'];
                     $receivedTime = \DateTime::createFromFormat('d/m/Y H:i:s', $receivedTime);
+=======
+                    $processedMetaData = $messages_model->processMessageData($xmlString);
+                    $receivedTimeTelemetry = $processedData['receivedTime'];
+                    $receivedTimeMetaData = $processedMetaData['receivedTime'];
+                    $receivedTimeTelemetry = \DateTime::createFromFormat('d/m/Y H:i:s', $receivedTimeTelemetry);
 
-                    if ($telemetry_model->isDataNew($receivedTime)) {
+                    if ($telemetry_model->isTelemetryDataNew($receivedTimeTelemetry)) {
                         $fanData = $processedData['fanData'] ?? null;
                         $heaterData = $processedData['heaterData'] ?? null;
                         $keypadData = $processedData['keypadData'] ?? null;
@@ -63,26 +79,25 @@ class TelemetryController
                         $switch3Data = $processedData['switch3Data'] ?? null;
                         $switch4Data = $processedData['switch4Data'] ?? null;
 
+                        $telemetry_model->storeTelemetryData($fanData, $heaterData, $switch1Data, $switch2Data, $switch3Data, $switch4Data, $keypadData);
 
-                        $sourceMSISDN = $processedData['sourceMsisdn'] ?? null;
-                        $destinationMsisdn = $processedData['destinationMsisdn'] ?? null;
-                        $bearer = $processedData['bearer'] ?? null;
-                        $messageRef = $processedData['messageRef'] ?? null;
-                        $message = $processedData['message'] ?? null;
+                    }
 
+                    $receivedTimeMetaData = \DateTime::createFromFormat('d/m/Y H:i:s', $receivedTimeMetaData);
 
-                        /**
-                        $sourceMSISDN = $processedMetaData['sourcemsisdn'] ?? null;
-                        $destinationMsisdn = $processedMetaData['destinationmsisdn'] ?? null;
+                    if ($messages_model->isMessageDataNew($receivedTimeMetaData)){
+                        $sourceMSISDN = $processedMetaData['sourceMsisdn'] ?? null;
+                        $destinationMsisdn = $processedMetaData['destinationMsisdn'] ?? null;
                         $bearer = $processedMetaData['bearer'] ?? null;
-                        $messageRef = $processedMetaData['messageref'] ?? null;
+                        $messageRef = $processedMetaData['messageRef'] ?? null;
                         $message = $processedMetaData['message'] ?? null;
-                        var_dump($processedData);
-                        var_dump($processedMetaData);
-                         */
+                       
                         $message_model->storeMessageData($sourceMSISDN, $destinationMsisdn, $bearer, $messageRef, $message);
                         $telemetry_model->storeTelemetryData($fanData, $heaterData, $switch1Data, $switch2Data, $switch3Data, $switch4Data, $keypadData);
 
+
+
+                        $messages_model->storeMessageData($sourceMSISDN, $destinationMsisdn, $bearer, $messageRef, $message);
                     }
 
 

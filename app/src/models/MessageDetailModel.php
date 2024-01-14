@@ -71,21 +71,45 @@ class MessageDetailModel
         $messageDestinationmsisdn = (string)$xml->destinationmsisdn;
         $messagebearer = (string)$xml->bearer;
         $messageref = (string)$xml->messageref;
-        $messageData_content = (string)$xml->message;
+        $message_data_content = (string)$xml->message;
 
         $processedMetaData = [
             'sourcemsisdn' => $messageSourcemsisdn,
             'destinationmsisdn' => $messageDestinationmsisdn,
-            'receivedTime' => (string)$xml->receivedtime,
             'bearer' => $messagebearer,
             'messageref' => $messageref,
-            'message' => $messageData_content,
-            'messagetype' => (string)$xml->messageType, // Assuming messageType is a string
+            'message' => $message_data_content,
+            'messagetype' => (string)$xml->messageType,
         ];
-
-        var_dump($processedMetaData);
 
         return $processedMetaData;
     }
 
+    public function isMessageDataNew($received_time): bool {
+
+        $latest_data = $this->getLatestMessageData();
+        if (!$latest_data) {
+            return true;
+        }
+        $latest_timestamp = $latest_data->getReceivedTime();
+        return $received_time > $latest_timestamp;
+    }
+
+    public function getLatestMessageData()
+    {
+        try {
+            $query = $this->entity_manager->createQueryBuilder()
+                ->select('m')
+                ->from(MessageData::class, 'm')
+                ->orderBy('m.created_at', 'DESC')
+                ->setMaxResults(1)
+                ->getQuery();
+
+            return $query->getOneOrNullResult();
+
+        } catch (\Exception $e) {
+            $this->logger->error("Error fetching latest message data: " . $e->getMessage());
+            return null;
+        }
+    }
 }

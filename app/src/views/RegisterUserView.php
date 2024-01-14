@@ -16,15 +16,6 @@ class RegisterUserView
     public function __destruct() {}
 
 
-    /**
-     * Creates the HTML view for the register user page.
-     *
-     * @param object $view
-     * @param array $settings
-     * @param Response $response
-     *
-     * @return void
-     */
 
     public function createRegisterUserView($view, array $settings, Response $response): void
     {
