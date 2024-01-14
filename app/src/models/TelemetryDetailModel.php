@@ -5,6 +5,7 @@ namespace Telemetry\models;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
+use Telemetry\Models\MessageDetailModel;
 
 class TelemetryDetailModel
 {

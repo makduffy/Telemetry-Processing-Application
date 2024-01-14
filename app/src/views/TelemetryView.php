@@ -21,7 +21,7 @@ class TelemetryView
     }
 
 
-    public function showTelemetryPage($view, $settings, $response, $telemetry_data): void
+    public function showTelemetryPage($view, $settings, $response, $telemetry_data, $message_data): void
 
 
 
@@ -38,6 +38,10 @@ class TelemetryView
         $switch4_data = $telemetry_data->getSwitch4Data();
         $keypad_data = $telemetry_data->getKeypadData();
 
+        $createdAt = $message_data->getReceivedTime();
+        $msisdn = $message_data->getSourceMSISDN();
+        $targetmsisdn = $message_data->getDestinationMSISDN();
+        $message = $message_data->getMessage();
 
         $this->logger->info("Rendering Telemetry page");
         $view->render(
@@ -60,6 +64,10 @@ class TelemetryView
                 'switch3data' => $switch3_data,
                 'switch4data' => $switch4_data,
                 'keypaddata' => $keypad_data,
+                'createdat' => $createdAt,
+                'msisdn' => $msisdn,
+                'targetmsisdn' => $targetmsisdn,
+                'message' => $message
             ]
         );
         $this->logger->info("Telemetry page rendered successfully.");

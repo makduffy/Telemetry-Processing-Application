@@ -21,6 +21,7 @@ use Telemetry\Controllers\postMessageController;
 use Telemetry\controllers\TelemetryController;
 use Telemetry\Models\PostMessageModel;
 use Telemetry\models\TelemetryDetailModel;
+use Telemetry\models\MessageDetailModel;
 use Telemetry\Support\DatabaseWrapper;
 use Telemetry\Support\SoapWrapper;
 use Telemetry\Support\Validator;
@@ -75,6 +76,26 @@ return function (Container $container, App $app) {
         $entityManager = $container->get('entityManager');
         return new TelemetryDetailModel($logger, $entityManager);
     });
+
+    /**
+     * Creates an instance of MessageDetailModel
+     *
+     * @return MessageDetailModel
+     *
+     */
+
+    $container->set('messageModel', function($container) {
+        $logger = $container->get('logger');
+        $entityManager = $container->get('entityManager');
+        return new MessageDetailModel($logger, $entityManager);
+    });
+
+    /**
+     * Creates an instance of SoapWrapper
+     *
+     * @return SoapWrapper
+     *
+     */
 
     $container->set('soapWrapper', function ($container) {
         $logger = $container->get('logger');
