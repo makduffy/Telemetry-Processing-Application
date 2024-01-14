@@ -19,12 +19,7 @@ class TelemetryView
     }
     public function __destruct(){
     }
-
-
     public function showTelemetryPage($view, $settings, $response, $telemetry_data, $message_data): void
-
-
-
     {
         $landing_page = $settings['landing_page'];
         $css_path = $settings['css_path'];

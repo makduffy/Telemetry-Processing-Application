@@ -15,15 +15,16 @@ class TelemetryController
         $telemetry_view = $container->get('telemetryView');
         $telemetry_model = $container->get('telemetryModel');
         $logger = $container->get('logger');
+        $messages_model = $container->get('messageModel');
 
         $logger->info("Creating HTML Output...");
 
         try {
 
             $telemetry_data = $telemetry_model->getLatestTelemetryData();
-
+            $message_data = $messages_model->getLatestMessageData();
             $logger->info("Rendering the telemetry page.");
-            $telemetry_view->showTelemetryPage($view, $settings, $response, $telemetry_data);
+            $telemetry_view->showTelemetryPage($view, $settings, $response, $telemetry_data, $message_data);
             $logger->info("Successfully rendered the telemetry page.");
 
         } catch (\Exception $e) {
@@ -50,10 +51,11 @@ class TelemetryController
 
                     $processedData = $telemetry_model->processMessage($xmlString);
                     $processedMetaData = $messages_model->processMessageData($xmlString);
-                    $receivedTime = $processedData['receivedTime'];
-                    $receivedTime = \DateTime::createFromFormat('d/m/Y H:i:s', $receivedTime);
+                    $receivedTimeTelemetry = $processedData['receivedTime'];
+                    $receivedTimeMetaData = $processedMetaData['receivedTime'];
+                    $receivedTimeTelemetry = \DateTime::createFromFormat('d/m/Y H:i:s', $receivedTimeTelemetry);
 
-                    if ($telemetry_model->isDataNew($receivedTime)) {
+                    if ($telemetry_model->isTelemetryDataNew($receivedTimeTelemetry)) {
                         $fanData = $processedData['fanData'] ?? null;
                         $heaterData = $processedData['heaterData'] ?? null;
                         $keypadData = $processedData['keypadData'] ?? null;
@@ -62,26 +64,20 @@ class TelemetryController
                         $switch3Data = $processedData['switch3Data'] ?? null;
                         $switch4Data = $processedData['switch4Data'] ?? null;
 
-
-                        $sourceMSISDN = $processedData['sourceMsisdn'] ?? null;
-                        $destinationMsisdn = $processedData['destinationMsisdn'] ?? null;
-                        $bearer = $processedData['bearer'] ?? null;
-                        $messageRef = $processedData['messageRef'] ?? null;
-                        $message = $processedData['message'] ?? null;
-
-
-                        /**
-                        $sourceMSISDN = $processedMetaData['sourcemsisdn'] ?? null;
-                        $destinationMsisdn = $processedMetaData['destinationmsisdn'] ?? null;
-                        $bearer = $processedMetaData['bearer'] ?? null;
-                        $messageRef = $processedMetaData['messageref'] ?? null;
-                        $message = $processedMetaData['message'] ?? null;
-                        var_dump($processedData);
-                        var_dump($processedMetaData);
-                         */
-                        $messages_model->storeMessageData($sourceMSISDN, $destinationMsisdn, $bearer, $messageRef, $message);
                         $telemetry_model->storeTelemetryData($fanData, $heaterData, $switch1Data, $switch2Data, $switch3Data, $switch4Data, $keypadData);
 
+                    }
+
+                    $receivedTimeMetaData = \DateTime::createFromFormat('d/m/Y H:i:s', $receivedTimeMetaData);
+
+                    if ($messages_model->isMessageDataNew($receivedTimeMetaData)){
+                        $sourceMSISDN = $processedMetaData['sourceMsisdn'] ?? null;
+                        $destinationMsisdn = $processedMetaData['destinationMsisdn'] ?? null;
+                        $bearer = $processedMetaData['bearer'] ?? null;
+                        $messageRef = $processedMetaData['messageRef'] ?? null;
+                        $message = $processedMetaData['message'] ?? null;
+
+                        $messages_model->storeMessageData($sourceMSISDN, $destinationMsisdn, $bearer, $messageRef, $message);
                     }
 
 
