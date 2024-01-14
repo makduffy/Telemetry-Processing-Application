@@ -40,29 +40,8 @@ class MessageData
      */
     private \DateTime $receivedTime;
 
-    public function __construct(){
-        $this->receivedTime = new \DateTime();
-=======
-    private ?int $id;
-    /**@ORM\Column (type="string") */
-    private ?string $sourceMSISDN;
-    /**@ORM\Column (type="string")*/
-    private ?string $destinationMSISDN;
-    /**@ORM\Column (type="datetime") */
-
-   //private ?string $receivedTime;
-   // /**@ORM\Column (type="string") */
-
-    private ?string $bearer;
-    /**@ORM\Column (type="string") */
-    private ?string $messageRef;
-    /**@ORM\Column (type="string")*/
-    private ?string $message;
-    /** @ORM\Column (type="datetime") */
-    private ?\DateTime  $created_at;
-    /** @ORM\Column (type="datetime") */
     public function __construct() {
-        $this->created_at = new \DateTime();
+        $this->receivedTime = new \DateTime();
     }
 
     public function getId(): int
@@ -134,14 +113,5 @@ class MessageData
     /**
      * @ORM\PrePersist
      */
-    public function setReceivedTimeValue(): void {
-        $this->receivedTime = new \DateTime();
-    public function getCreatedAt(): \DateTime {
-        return $this->created_at;
-    }
 
-    public function setCreatedAt(\DateTime $created_at): self {
-        $this->created_at = $created_at;
-        return $this;
-    }
 }
