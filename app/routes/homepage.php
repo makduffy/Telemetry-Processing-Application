@@ -30,7 +30,12 @@ $app->get(
         $home_page_controller->createHtmlOutput($container, $request, $response);
         return $response;
     }
-
-
 );
+
+$app->post('/', function (Request $request, Response $response) use ($app) {
+    $container = $app->getContainer();
+    $home_page_controller = $container->get('homePageController');
+    $home_page_controller->validateUser($container, $request, $response);
+    return $response;
+});
 

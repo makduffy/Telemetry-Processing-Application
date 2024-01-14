@@ -36,4 +36,17 @@ class UserDetailModel
         return $hashedPassword;
     }
 
+    public function authenticate($username, $password)
+    {
+        // Find user by username
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['username' => $username]);
+
+        // Check if user exists and password is correct
+        if ($user && password_verify($password, $user->getPassword())) {
+            return true; // Authentication successful
+        }
+
+        return false; // Authentication failed
+    }
+
 }
