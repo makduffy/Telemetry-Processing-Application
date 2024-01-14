@@ -68,6 +68,56 @@ class Validator
     }
 
 
+    public function sanitizeData($xmlString, $type){
+        $sanitizedMessages = [];
+
+        try{
+            $xml = new \SimpleXMLElement($xmlString);
+
+            foreach ($xml->message as $message) {
+                if ((string)$message->type === $type) {
+                    $filteredMessages[] = [
+                        'id' => (string)$message->id,
+                        'content' => (string)$message->content
+                    ];
+                }
+            }
+        } catch (\Exception $e) {
+        }
+        return $sanitizedMessages;
+    }
+
+    public function filterData(object $validator, array $telemetry_data): array
+    {
+
+        $sanitized_data = [];
+
+        $fan_data = $telemetry_data['fan'] ?? null;
+        $heater_data = $telemetry_data['heater'] ?? null;
+        $keypad_data = $telemetry_data['keypad'] ?? null;
+        $switch1_data = $telemetry_data['switch1'] ?? null;
+        $switch2_data = $telemetry_data['switch2'] ?? null;
+        $switch3_data = $telemetry_data['switch3'] ?? null;
+        $switch4_data = $telemetry_data['switch4'] ?? null;
+
+        $sanitized_data['fan_data'] = $validator->sanitizeData($fan_data);
+        $sanitized_data['heater_data'] = $validator->sanitizeData($heater_data);
+        $sanitized_data['keypad_data'] = $validator->sanitizeData($keypad_data);
+        $sanitized_data['switch1_data'] = $validator->sanitizeData($switch1_data);
+        $sanitized_data['switch2_data'] = $validator->sanitizeData($switch2_data);
+        $sanitized_data['switch3_data'] = $validator->sanitizeData($switch3_data);
+        $sanitized_data['switch4_data'] = $validator->sanitizeData($switch4_data);
+
+        return $sanitized_data;
+    }
+
+
+
+
+
+
+
+/**
     public function sanitizeData($telemetry_data)
     {
         if (is_array($telemetry_data)) {
@@ -92,26 +142,7 @@ class Validator
             return '';
         }
     }
-}
-    //public function sanitizeData($data)
-    // {
-    //   if (is_array($data)) {
-    //      $result = '';
-//
-    //      foreach ($data as $item) {
-    //          if (preg_match('/<message>(.*?)<\/message>/', $item, $matches)) {
-    //           $result .= $matches[1] . ' '; // Concatenate the matched messages
-    //           }
-    //     }
+ * */
 
-    //      return trim($result); // Remove trailing space and return a single string
-    ///    } elseif (is_string($data)) {
-    //        if (preg_match('/<message>(.*?)<\/message>/', $data, $matches)) {
-    //           return $matches[1]; // Return the matched message from the input string
-    //      } else {
-    //           return ''; // Return an empty string if no match is found
-    //       }
-    //    } else {
-    //       return ''; // Return an empty string for unsupported input types
-    //    }
-    // }
+}
+

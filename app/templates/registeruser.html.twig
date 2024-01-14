@@ -1,7 +1,25 @@
 {% extends 'banner.html.twig' %}
 {% block content %}
+
+    <style>
+        .cent {
+            text-align: center;
+            margin: auto;
+        }
+
+
+        fieldset {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+    </style>
+
     <div id="page-content-div">
-        <h1>{{ 'Register for telemtry services' }}</h1>
+        <h1 class="cent">{{ 'Register for telemtry services' }}</h1>
         <fieldset class="cent">
             <form action="{{ action }}" method="get">
 
@@ -16,7 +34,7 @@
                 <input type="submit" value="Create account">
             </form>
             <br>
-            <a href="homepage">
+            <a href="/telemetry/">
                 <button>Log In</button>
             </a>
         </fieldset>
