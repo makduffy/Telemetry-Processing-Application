@@ -2,6 +2,8 @@
 declare (strict_types=1);
 namespace Telemetry\controllers;
 
+use Telemetry\Models\MessageDetailModel;
+
 class TelemetryController
 {
 
@@ -34,6 +36,7 @@ class TelemetryController
         $soap_wrapper = $container->get('soapWrapper');
         $settings = $container->get('settings');
         $telemetry_model = $container->get('telemetryModel');
+        $messages_model = $container->get('messageModel');
         $logger = $container->get('logger');
 
         $logger->info("Retrieving the message");
@@ -46,6 +49,7 @@ class TelemetryController
                 try {
 
                     $processedData = $telemetry_model->processMessage($xmlString);
+                    $processedMetaData = $messages_model->processMessageData($xmlString);
                     $receivedTime = $processedData['receivedTime'];
                     $receivedTime = \DateTime::createFromFormat('d/m/Y H:i:s', $receivedTime);
 
@@ -58,8 +62,28 @@ class TelemetryController
                         $switch3Data = $processedData['switch3Data'] ?? null;
                         $switch4Data = $processedData['switch4Data'] ?? null;
 
+
+                        $sourceMSISDN = $processedData['sourceMsisdn'] ?? null;
+                        $destinationMsisdn = $processedData['destinationMsisdn'] ?? null;
+                        $bearer = $processedData['bearer'] ?? null;
+                        $messageRef = $processedData['messageRef'] ?? null;
+                        $message = $processedData['message'] ?? null;
+
+
+                        /**
+                        $sourceMSISDN = $processedMetaData['sourcemsisdn'] ?? null;
+                        $destinationMsisdn = $processedMetaData['destinationmsisdn'] ?? null;
+                        $bearer = $processedMetaData['bearer'] ?? null;
+                        $messageRef = $processedMetaData['messageref'] ?? null;
+                        $message = $processedMetaData['message'] ?? null;
+                        var_dump($processedData);
+                        var_dump($processedMetaData);
+                         */
+                        $messages_model->storeMessageData($sourceMSISDN, $destinationMsisdn, $bearer, $messageRef, $message);
                         $telemetry_model->storeTelemetryData($fanData, $heaterData, $switch1Data, $switch2Data, $switch3Data, $switch4Data, $keypadData);
+
                     }
+
 
                 } catch (\Exception $innerException) {
                     $logger->error("Could not store the data " . $innerException->getMessage());
