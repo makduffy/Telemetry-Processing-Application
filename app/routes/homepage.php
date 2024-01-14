@@ -30,10 +30,10 @@ $app->get(
 
         $home_page_controller = $container->get('homePageController');
 
-         ///  Invokes the method to create HTML output for the home page.
+        /** Invokes the method to create HTML output for the home page. */
 
         $home_page_controller->createHtmlOutput($container, $request, $response);
-         /// Returns the HTTP response.
+         /** Returns the HTTP response. */
         return $response;
     }
 

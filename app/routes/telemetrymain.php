@@ -34,15 +34,15 @@ $app->get('/telemetrymain', function (Request $request, Response $response) use 
 
     $telemetry_controller->fetchAndStoreData($container, $response);
     try {
-        // Invokes the method to create HTML output for the telemetry main page.
+        /*** Invokes the method to create HTML output for the telemetry main page. */
         $telemetry_controller->createHtmlOutput($container, $request, $response);
-        // Logs successful access to the telemetry main route.
+        /** Logs successful access to the telemetry main route. */
         $logger->info('Telemetry main route accessed successfully');
     } catch (\Exception $e) {
-        // Logs an error if an exception is caught during processing.
+        /*** Logs an error if an exception is caught during processing. */
         $logger->error('Error in telemetry main route: ' . $e->getMessage());
     }
-    // Returns the HTTP response.
+    /** Returns the HTTP response. */
     return $response;
 
 });

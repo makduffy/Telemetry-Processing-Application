@@ -40,7 +40,7 @@ class HomePageController
          * @var array $settings
          */
         $settings = $container->get('settings');
-        // Invokes the method to create the home page view.
+        /** Invokes the method to create the home page view. */
         $homepage_view->createHomePageView($view, $settings, $response);
     }
 }
