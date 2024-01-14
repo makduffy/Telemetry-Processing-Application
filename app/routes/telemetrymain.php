@@ -7,10 +7,6 @@ global $app;
  *
  * Defines a route for the telemetry main page.
  *
- * @param Request $request The HTTP request object.
- * @param Response $response The HTTP response object.
- *
- * @return Response The HTTP response object after processing the telemetry main page.
  */
 
 use Psr\Http\Message\ServerRequestInterface as Request;

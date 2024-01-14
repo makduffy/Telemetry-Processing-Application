@@ -4,6 +4,17 @@ namespace Telemetry\controllers;
 
 use Telemetry\Models\MessageDetailModel;
 
+/***
+ * Created by Mak Duffy
+ *
+ *
+ *  Class Telemetry Controller
+ *
+ * Controller for handling requests related to telemetry data
+ */
+
+
+
 class TelemetryController
 {
 

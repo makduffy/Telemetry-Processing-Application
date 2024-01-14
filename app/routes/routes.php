@@ -1,9 +1,9 @@
 <?php
 /**
- *requiring necessary files.
+ *  requiring necessary files.
  *
- * This script includes the essential files required for the application to function,
- * such as 'homepage.php', 'telemetrymain.php', and 'registeruser.php'.
+ * Created by Mak Duffy, Flavio Moreira and Rory Markham
+ *
  *
  */
 
