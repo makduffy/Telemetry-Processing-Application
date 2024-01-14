@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class RegisterUserModel
+class UserData
 {
     /**
      * @ORM\Id
@@ -21,6 +21,16 @@ class RegisterUserModel
 
     /** @ORM\Column(type="string") */
     private string $password;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private \DateTime $createdAt;
+
+    public function __construct(){
+        $this->createdAt = new \DateTime();
+    }
+
 
     public function getId(): int
     {
@@ -53,6 +63,14 @@ class RegisterUserModel
     {
         $this->password = $password;
         return $this;
+    }
+    public function setCreatedTime(\DateTime $createdAt): self{
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function getCreatedTime(): \DateTime {
+        return $this->createdAt;
     }
 }
 
