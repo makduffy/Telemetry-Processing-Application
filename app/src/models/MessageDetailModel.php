@@ -94,22 +94,4 @@ class MessageDetailModel
         $latest_timestamp = $latest_data->getReceivedTime();
         return $received_time > $latest_timestamp;
     }
-
-    public function getLatestMessageData()
-    {
-        try {
-            $query = $this->entity_manager->createQueryBuilder()
-                ->select('m')
-                ->from(MessageData::class, 'm')
-                ->orderBy('m.created_at', 'DESC')
-                ->setMaxResults(1)
-                ->getQuery();
-
-            return $query->getOneOrNullResult();
-
-        } catch (\Exception $e) {
-            $this->logger->error("Error fetching latest message data: " . $e->getMessage());
-            return null;
-        }
-    }
 }
