@@ -8,33 +8,65 @@ use function DI\string;
 
 class Validator
 {
-    public function __construct(){ }
+    public function __construct()
+    {
+    }
 
-    public function __deconstruct(){ }
+    public function __destruct()
+    {
+    }
 
     public function validateFanData($fan_data)
     {
+        if ($this->fanDataStored) {
+            return null;
+        }
+
+        $matches = [];
+
+        // Use a regular expression to match the word "fan" and a few characters after it
+        if (preg_match('/fan\w*/i', $fan_data, $matches)) {
+            // $matches[0] will contain the matched string (word "fan" and following characters)
+            return $matches[0];
+        }
+
+        return null;
     }
+
     public function validateHeaterData($heater_data)
     {
     }
+
     public function validateSwitchData($switch_data)
     {
     }
+
     public function validateKeypadData($keypad_data)
     {
     }
+
     public function filterArray(array $telemetry_data, $identifier): array
     {
         $filteredData = [];
 
         foreach ($telemetry_data as $item) {
-            if (str_contains($item, $identifier)) {
+            // Check if the item contains the identifier
+            if (is_string($item) && str_contains($item, $identifier)) {
                 $filteredData[] = $item;
             }
         }
-        return $filteredData;
+
+        if (empty($filteredData)) {
+            // Handle the case when no matching items are found
+            return [];
+        }
+
+        // Get the latest item in the filtered array
+        $latestData = [end($filteredData)];
+        var_dump($latestData);
+        return $latestData;
     }
+
 
     public function sanitizeData($xmlString, $type){
         $sanitizedMessages = [];
@@ -83,35 +115,33 @@ class Validator
 
 
 
-    /*public function sanitizeData($telemetry_data)
+
+
+
+    public function sanitizeData($telemetry_data)
     {
-        if (is_array($telemetry_data))
-        {
+        if (is_array($telemetry_data)) {
             $cleaned_data = '';
-            foreach ($telemetry_data as $item)
-            {
+            foreach ($telemetry_data as $item) {
                 $xml = new \SimpleXMLElement($item);
 
-                foreach ($xml->message as $message)
-                {
-                    $cleaned_data  .= (string)$message . ' ';
+                foreach ($xml->message as $message) {
+                    $cleaned_data .= (string)$message . ' ';
                 }
             }
-            return trim($cleaned_data );
-        } elseif (is_string($telemetry_data))
-        {
+            return trim($cleaned_data);
+        } elseif (is_string($telemetry_data)) {
             $xml = new \SimpleXMLElement($telemetry_data);
-            $cleaned_data  = '';
+            $cleaned_data = '';
 
-            foreach ($xml->message as $message)
-            {
-                $cleaned_data  .= (string)$message . ' ';
+            foreach ($xml->message as $message) {
+                $cleaned_data .= (string)$message . ' ';
             }
-            return trim($cleaned_data );
+            return trim($cleaned_data);
         } else {
             return '';
         }
     }
-    */
 
 }
+
