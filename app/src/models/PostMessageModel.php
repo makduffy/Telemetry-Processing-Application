@@ -15,7 +15,7 @@ class PostMessageModel
         $this->entity_manager = $entity_manager;
     }
 
-    public function sendMessage($soap_wrapper, $settings, $message)
+    public function sendMessage($message, $settings, $soap_wrapper)
     {
         $this->logger->info("Initiating call to telemetry data.");
 

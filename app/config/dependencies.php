@@ -103,10 +103,6 @@ return function (Container $container, App $app) {
         return new SoapWrapper($logger);
     });
 
-    $container->set('databaseWrapper', function(){
-        return new DatabaseWrapper();
-    });
-
     $container->set('validator', function(){
         return new Validator();
     });
@@ -142,19 +138,21 @@ return function (Container $container, App $app) {
     });
 
     $container->set('sendMessageView', function(){
-        return new sendMessageView();
+        return new SendMessageView();
     });
 
     $container->set('postMessageView', function(){
-        return new postMessageView();
+        return new PostMessageView();
     });
 
     $container->set('postMessageController', function(){
         return new PostMessageController();
     });
 
-    $container->set('postMessageModel', function(){
-        return new PostMessageModel();
+    $container->set('postMessageModel', function($container){
+        $logger = $container->get('logger');
+        $entityManager = $container->get('entityManager');
+        return new PostMessageModel($logger, $entityManager);
     });
 
 

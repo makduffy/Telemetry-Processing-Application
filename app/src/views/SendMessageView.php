@@ -1,10 +1,8 @@
 <?php
-
-namespace Telemetry\Views;
-
+namespace Telemetry\views;
 class SendMessageView
 {
-    public function showSendMessagePage($response, $settings, $request, $view): void
+    public function showSendMessagePage($view, $settings, $response): void
     {
         $landing_page = $settings['landing_page'];
         $css_path = $settings['css_path'];
@@ -12,7 +10,7 @@ class SendMessageView
 
         $view->render(
             $response,
-            'sendMessage.html.twig',
+            'sendmessage.html.twig',
             [
                 'css_path' => $css_path,
                 'landing_page' => $landing_page,
