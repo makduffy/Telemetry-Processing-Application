@@ -24,10 +24,6 @@ class MessageData
      */
     private $destinationMSISDN;
     /**
-     * @ORM\Column (type="datetime")
-     */
-    private $receivedTime;
-    /**
      * @ORM\Column (type="string")
      */
     private $bearer;
@@ -39,6 +35,14 @@ class MessageData
      * @ORM\Column (type="string")
      */
     private $message;
+    /**
+     * @ORM\Column (type="datetime")
+     */
+    private \DateTime $receivedTime;
+
+    public function __construct(){
+        $this->receivedTime = new \DateTime();
+    }
 
     public function getId(): int
     {
@@ -73,16 +77,7 @@ class MessageData
         return $this;
     }
 
-    public function getReceivedTime(): \DateTime
-    {
-        return $this->receivedTime;
-    }
 
-    public function setReceivedTime(\DateTime $receivedTime): self
-    {
-        $this->receivedTime = $receivedTime;
-        return $this;
-    }
 
     public function getBearer(): string
     {
@@ -115,5 +110,22 @@ class MessageData
     {
         $this->message = $message;
         return $this;
+    }
+    public function setReceivedTime(\DateTime $receivedTime): self
+    {
+        $this->receivedTime = $receivedTime;
+        return $this;
+    }
+
+    public function getReceivedTime(): \DateTime
+    {
+        return $this->receivedTime;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setReceivedTimeValue(): void {
+        $this->receivedTime = new \DateTime();
     }
 }

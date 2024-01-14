@@ -14,6 +14,7 @@ class TelemetryController
         $settings = $container->get('settings');
         $telemetry_view = $container->get('telemetryView');
         $telemetry_model = $container->get('telemetryModel');
+        $messages_model = $container->get('messageModel');
         $logger = $container->get('logger');
 
         $logger->info("Creating HTML Output...");
@@ -21,9 +22,10 @@ class TelemetryController
         try {
 
             $telemetry_data = $telemetry_model->getLatestTelemetryData();
+            $message_data = $messages_model->getLatestMessageData();
 
             $logger->info("Rendering the telemetry page.");
-            $telemetry_view->showTelemetryPage($view, $settings, $response, $telemetry_data);
+            $telemetry_view->showTelemetryPage($view, $settings, $response, $telemetry_data, $message_data);
             $logger->info("Successfully rendered the telemetry page.");
 
         } catch (\Exception $e) {
@@ -36,7 +38,7 @@ class TelemetryController
         $soap_wrapper = $container->get('soapWrapper');
         $settings = $container->get('settings');
         $telemetry_model = $container->get('telemetryModel');
-        $messages_model = $container->get('messageModel');
+        $message_model = $container->get('messageModel');
         $logger = $container->get('logger');
 
         $logger->info("Retrieving the message");
@@ -49,7 +51,6 @@ class TelemetryController
                 try {
 
                     $processedData = $telemetry_model->processMessage($xmlString);
-                    $processedMetaData = $messages_model->processMessageData($xmlString);
                     $receivedTime = $processedData['receivedTime'];
                     $receivedTime = \DateTime::createFromFormat('d/m/Y H:i:s', $receivedTime);
 
@@ -79,7 +80,7 @@ class TelemetryController
                         var_dump($processedData);
                         var_dump($processedMetaData);
                          */
-                        $messages_model->storeMessageData($sourceMSISDN, $destinationMsisdn, $bearer, $messageRef, $message);
+                        $message_model->storeMessageData($sourceMSISDN, $destinationMsisdn, $bearer, $messageRef, $message);
                         $telemetry_model->storeTelemetryData($fanData, $heaterData, $switch1Data, $switch2Data, $switch3Data, $switch4Data, $keypadData);
 
                     }

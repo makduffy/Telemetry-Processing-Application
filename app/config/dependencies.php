@@ -27,7 +27,6 @@ use Telemetry\Support\SoapWrapper;
 use Telemetry\Support\Validator;
 use Telemetry\Views\HomePageView;
 use Telemetry\Views\PostMessageView;
-use Telemetry\views\HomePageView;
 use Telemetry\views\SendMessageView;
 use Telemetry\views\TelemetryView;
 

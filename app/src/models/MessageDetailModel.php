@@ -45,6 +45,24 @@ class MessageDetailModel
         $this->entity_manager->flush();
     }
 
+    public function getLatestMessageData()
+    {
+        try {
+            $query = $this->entity_manager->createQueryBuilder()
+                ->select('data')
+                ->from(MessageData::class, 'data')
+                ->orderBy('data.receivedTime', 'DESC')
+                ->setMaxResults(1)
+                ->getQuery();
+
+            return $query->getOneOrNullResult();
+
+        } catch (\Exception $e) {
+            $this->logger->error("Error fetching latest message data " . $e->getMessage());
+            return null;
+        }
+    }
+
     public function processMessageData($xml_string): array {
         $xml = new \SimpleXMLElement($xml_string);
 
