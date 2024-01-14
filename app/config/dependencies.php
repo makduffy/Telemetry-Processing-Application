@@ -35,6 +35,12 @@ use Telemetry\views\TelemetryView;
 
 
 /**
+ * date 16/11/23
+ *
+ * created by Mak Duffy, Flavio Moreira and Rory Markham
+ *
+ * Configures error middleware for the Slim application
+ *
  * Configures services and settings for the Slim application
  *
  * @param Container $container The dependency injection container
@@ -78,12 +84,6 @@ return function (Container $container, App $app) {
         return new TelemetryDetailModel($logger, $entityManager);
     });
 
-    /**
-     * Creates an instance of MessageDetailModel
-     *
-     * @return MessageDetailModel
-     *
-     */
 
     $container->set('messageModel', function($container) {
         $logger = $container->get('logger');
@@ -91,12 +91,6 @@ return function (Container $container, App $app) {
         return new MessageDetailModel($logger, $entityManager);
     });
 
-    /**
-     * Creates an instance of SoapWrapper
-     *
-     * @return SoapWrapper
-     *
-     */
 
     $container->set('soapWrapper', function ($container) {
         $logger = $container->get('logger');

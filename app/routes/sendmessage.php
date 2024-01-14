@@ -4,6 +4,12 @@ global $app;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
+/***
+ * Created by Mak Duffy
+ *
+ *
+ */
+
 $app->get('/sendmessage', function (Request $request, Response $response) use ($app) {
 
     $container = $app->getContainer();

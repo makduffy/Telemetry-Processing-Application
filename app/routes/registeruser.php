@@ -3,12 +3,11 @@
 global $app, $app;
 
 /**
+ *
+ * Created by Rory Markham
+ *
  * Defines a route for registering a user via POST request.
  *
- * @param Request $request The HTTP request object.
- * @param Response $response The HTTP response object.
- *
- * @return Response The HTTP response object after processing the user registration.
  */
 
 use Psr\Http\Message\ServerRequestInterface as Request;

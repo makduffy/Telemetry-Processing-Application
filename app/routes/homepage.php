@@ -3,12 +3,10 @@
 global $app, $app;
 
 /**
+ * Created by Mak Duffy
+ *
  * Defines a route for the home page.
  *
- * @param Request $request The HTTP request object.
- * @param Response $response The HTTP response object.
- *
- * @return Response The HTTP response object after processing the home page.
  */
 
 use Psr\Http\Message\ServerRequestInterface as Request;

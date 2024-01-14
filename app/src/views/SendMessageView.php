@@ -1,5 +1,12 @@
 <?php
 namespace Telemetry\views;
+
+/**
+ * Class SendMessageView
+ *
+ * Represents the view for displaying the send message page.
+ *
+ */
 class SendMessageView
 {
     public function showSendMessagePage($view, $settings, $response): void
